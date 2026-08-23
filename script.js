@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const textEngagementDE = "Gesellschaftliches Engagement (ehrenamtlich):\n 1. Fachschaftsrat FIN OVGU (Gewählter Stellvertreter: Erstsemesterwochen für 150+ Studierende, IT-Adminreferat, Wiki-Ausbau)\n 2. CJD Droyßig (Gewählter Klassensprecher, 3D-Schulcampus Digitalpreis)\n\nFachliches Engagement:\n 1. SIDUM e.V. (Ressort Finanzen & Recht, PwC GenAI Masterclass, d-fine Kreditentscheidungs-Modelle, JC-NetworkDays)";
     const textEngagementEN = "Community engagement (voluntary):\n 1. Student Council FIN OVGU (Elected Representative: Orientation weeks for 150+ students, IT Administration, Wiki expansion)\n 2. CJD Droyßig (Elected Class Representative, 3D Campus Digitalization Award)\n\nProfessional engagement:\n 1. SIDUM e.V. (Finance & Legal, PwC GenAI Masterclass, d-fine credit decision models, JC-NetworkDays)";
 
-    const textKontaktDE = "Kontakt:\n • E-Mail: emin.girimhanov@posteo.de\n • Telefon: +49 1522 9947465\n • Mastodon: machteburch.social/@emin\n • LinkedIn: https://www.linkedin.com/in/emin-girimhanov/\n • GitHub: https://github.com/emin-girimhanov";
-    const textKontaktEN = "Contact:\n • E-Mail: emin.girimhanov@posteo.de\n • Phone: +49 1522 9947465\n • Mastodon: machteburch.social/@emin\n • LinkedIn: https://www.linkedin.com/in/emin-girimhanov/\n • GitHub: https://github.com/emin-girimhanov";
+    const textKontaktDE = "Kontakt:\n • E-Mail: emin.girimhanov@posteo.de\n • Signal: emingirimhanov.01\n • Mastodon: machteburch.social/@emin\n • LinkedIn: https://www.linkedin.com/in/emin-girimhanov/\n • GitHub: https://github.com/emin-girimhanov";
+    const textKontaktEN = "Contact:\n • E-Mail: emin.girimhanov@posteo.de\n • Signal: emingirimhanov.01\n • Mastodon: machteburch.social/@emin\n • LinkedIn: https://www.linkedin.com/in/emin-girimhanov/\n • GitHub: https://github.com/emin-girimhanov";
 
     // Command Aliases Map
     const aliasMap = {
