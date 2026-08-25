@@ -11,7 +11,7 @@ Offizielle Webseite & Portfolio: [emin-girimhanov.de](https://emin-girimhanov.de
 
 ## Beruflich
 
-* **[Falcos GmbH](https://falcos.de)** – Werkstudent im Public Sector. Automatisierte XÖV-ZUGFeRD Parser, Docusaurus-Dokumentationsportale und LLM-Prozessautomatisierungen.
+* **Falcos GmbH** ([falcos.de](https://falcos.de)) – Mein Arbeitgeber, nicht mein Projekt. Als Werkstudent im Public Sector entwickle ich dort automatisierte XÖV-ZUGFeRD Parser, Docusaurus-Dokumentationsportale und LLM-Prozessautomatisierungen.
 
 ## Was ich mache
 

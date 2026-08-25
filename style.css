@@ -1253,6 +1253,16 @@ body {
     text-overflow: ellipsis;
 }
 
+/* Kennzeichnet einen Link als Arbeitgeber-Seite, nicht als eigenes Werk */
+.site-link-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted, #8b93a7);
+    white-space: nowrap;
+}
+
 .live-url-link {
     display: inline-flex;
     align-items: center;
