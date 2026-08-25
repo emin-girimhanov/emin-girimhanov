@@ -200,6 +200,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 input.placeholder = tempDoc.body.textContent;
             }
         });
+
+        // Reine Beschriftungen: Der Inhalt bleibt unangetastet, damit
+        // Icon-Knoepfe ihr SVG behalten.
+        const labelled = document.querySelectorAll('[data-de-label][data-en-label]');
+        labelled.forEach(el => {
+            const label = el.getAttribute(`data-${lang}-label`);
+            if (label) {
+                el.setAttribute('aria-label', label);
+                if (el.hasAttribute('title')) el.setAttribute('title', label);
+            }
+        });
     }
 
     if (langToggleBtn) {
@@ -391,17 +402,48 @@ document.addEventListener('DOMContentLoaded', () => {
     if (copyEmailBtn) {
         copyEmailBtn.addEventListener('click', () => {
             const email = "emin.girimhanov@posteo.de";
-            navigator.clipboard.writeText(email).then(() => {
+
+            function meldung(ok) {
                 const tooltip = document.getElementById('copy-tooltip');
-                if (tooltip) {
+                if (!tooltip) return;
+                if (ok) {
                     tooltip.innerText = currentLang === 'de' ? 'Kopiert! ✓' : 'Copied! ✓';
                     copyEmailBtn.classList.add('copied');
-                    setTimeout(() => {
-                        tooltip.innerText = currentLang === 'de' ? 'Kopieren' : 'Copy';
-                        copyEmailBtn.classList.remove('copied');
-                    }, 2000);
+                } else {
+                    tooltip.innerText = currentLang === 'de' ? 'Bitte manuell kopieren' : 'Please copy manually';
                 }
-            });
+                setTimeout(() => {
+                    tooltip.innerText = currentLang === 'de' ? 'Kopieren' : 'Copy';
+                    copyEmailBtn.classList.remove('copied');
+                }, 2000);
+            }
+
+            // Aelterer Weg fuer Safari und fuer Seiten ohne HTTPS,
+            // wo navigator.clipboard nicht bereitsteht.
+            function kopiereNotfalls(text) {
+                try {
+                    const feld = document.createElement('textarea');
+                    feld.value = text;
+                    feld.setAttribute('readonly', '');
+                    feld.style.position = 'fixed';
+                    feld.style.top = '-1000px';
+                    document.body.appendChild(feld);
+                    feld.select();
+                    const ok = document.execCommand('copy');
+                    document.body.removeChild(feld);
+                    return ok;
+                } catch (e) {
+                    return false;
+                }
+            }
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(email)
+                    .then(() => meldung(true))
+                    .catch(() => meldung(kopiereNotfalls(email)));
+            } else {
+                meldung(kopiereNotfalls(email));
+            }
         });
     }
 
@@ -633,11 +675,63 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Zurueck nach oben ---
+    // Der Knopf taucht erst auf, wenn eine gute Bildschirmhoehe gescrollt
+    // ist, und verschwindet etwas frueher wieder. Die Luecke zwischen den
+    // beiden Schwellen verhindert Flackern genau an der Grenze.
+    const backToTop = document.getElementById('back-to-top');
+    const SHOW_AT = 600;
+    const HIDE_AT = 400;
+
+    function updateBackToTop() {
+        if (!backToTop) return;
+        const y = window.pageYOffset || document.documentElement.scrollTop;
+        const shown = backToTop.classList.contains('is-visible');
+
+        if (!shown && y > SHOW_AT) {
+            backToTop.hidden = false;
+            // Erzwingt einen Frame, damit der Uebergang wirklich laeuft
+            void backToTop.offsetWidth;
+            backToTop.classList.add('is-visible');
+        } else if (shown && y < HIDE_AT) {
+            backToTop.classList.remove('is-visible');
+        }
+    }
+
+    if (backToTop) {
+        backToTop.addEventListener('click', () => {
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+            // Fokus zurueck an den Seitenanfang, damit Tastatur und
+            // Screenreader der Bewegung folgen.
+            const hero = document.getElementById('hero');
+            if (hero) {
+                hero.setAttribute('tabindex', '-1');
+                hero.focus({ preventScroll: true });
+            }
+        });
+
+        // Nach dem Ausblenden wieder komplett aus dem Baum nehmen
+        backToTop.addEventListener('transitionend', (e) => {
+            if (e.propertyName === 'opacity' && !backToTop.classList.contains('is-visible')) {
+                backToTop.hidden = true;
+            }
+        });
+    }
+
+    let scrollTicking = false;
     window.addEventListener('scroll', () => {
-        requestAnimationFrame(updateTimelineProgress);
-    });
+        if (scrollTicking) return;
+        scrollTicking = true;
+        requestAnimationFrame(() => {
+            updateTimelineProgress();
+            updateBackToTop();
+            scrollTicking = false;
+        });
+    }, { passive: true });
     window.addEventListener('resize', updateTimelineProgress);
     updateTimelineProgress();
+    updateBackToTop();
 
     // --- Canvas UI Interactive Particle & Shimmer Effect (CanvasUI.dev inspired) ---
     const canvas = document.getElementById('canvas-ui-bg');

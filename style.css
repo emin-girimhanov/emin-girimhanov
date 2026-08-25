@@ -214,8 +214,8 @@ body {
 .glass-card {
     position: relative;
     background: var(--bg-card);
-    backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
@@ -257,8 +257,8 @@ body {
     z-index: 1000;
     padding: 12px 0;
     background: rgba(10, 13, 20, 0.92);
-    backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -1150,6 +1150,7 @@ body {
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.02em;
+    -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
@@ -1292,6 +1293,7 @@ body {
     width: 100vw;
     height: 100vh;
     background: rgba(5, 7, 12, 0.85);
+    -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
     z-index: 10000;
     display: flex;
@@ -1631,9 +1633,19 @@ body {
 }
 
 /* Responsive */
-@media (max-width: 900px) {
+/* Bis 1060px: Logo, sechs Navigationslinks und die Aktionen passen
+   nebeneinander nicht mehr in die Kopfzeile (gemessen: die Links allein
+   brauchen 594px). Darunter uebernimmt das Burger-Menue. */
+@media (max-width: 1060px) {
     .nav-toggle {
         display: flex;
+    }
+
+    /* Platz sparen: GitHub-Knopf zeigt nur noch das Symbol.
+       Gleiche Grenze wie das Burger-Menue, sonst draengt das Label
+       die Kopfzeile im Tablet-Querformat aus dem Bild. */
+    .nav-actions .btn-label {
+        display: none;
     }
 
     /* Navigation klappt unter die Kopfzeile statt aus dem Bild zu laufen */
@@ -1647,8 +1659,8 @@ body {
         gap: 2px;
         padding: 10px 20px 16px;
         background: rgba(10, 13, 20, 0.98);
-        backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
         border-bottom: 1px solid var(--border-color);
         display: none;
     }
@@ -1661,11 +1673,6 @@ body {
         display: block;
         padding: 12px 10px;
         font-size: 1rem;
-    }
-
-    /* Platz sparen: GitHub-Knopf zeigt nur noch das Symbol */
-    .nav-actions .btn-label {
-        display: none;
     }
 
     .nav-logo {
@@ -1767,5 +1774,116 @@ body {
 
     .site-link-badge {
         flex-wrap: wrap;
+    }
+}
+
+/* ==========================================================
+   Zurueck nach oben
+   Schwebt unten rechts und erscheint erst, wenn man ein gutes
+   Stueck gescrollt hat. Der Auftritt hat einen kleinen
+   Ueberschwung, danach bleibt der Knopf ruhig.
+   ========================================================== */
+.back-to-top {
+    position: fixed;
+    /* Sichere Abstaende auf Geraeten mit Notch/Gestenleiste */
+    right: calc(24px + env(safe-area-inset-right, 0px));
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    z-index: 900;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+
+    color: var(--text-main);
+    background: var(--bg-card-hover, rgba(28, 36, 56, 0.9));
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+
+    /* Ruhezustand: unsichtbar und nicht anklickbar */
+    opacity: 0;
+    transform: translateY(12px) scale(0.85);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease,
+                border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.back-to-top.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+    /* Der kleine Impuls beim Einblenden */
+    animation: back-to-top-pop 0.42s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes back-to-top-pop {
+    0%   { transform: translateY(12px) scale(0.85); }
+    60%  { transform: translateY(-3px) scale(1.08); }
+    100% { transform: translateY(0) scale(1); }
+}
+
+.back-to-top:hover {
+    border-color: var(--border-highlight);
+    box-shadow: 0 8px 26px var(--primary-glow);
+    transform: translateY(-3px) scale(1.06);
+}
+
+.back-to-top:active {
+    transform: translateY(0) scale(0.94);
+}
+
+.back-to-top:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+}
+
+.back-to-top svg {
+    display: block;
+    pointer-events: none;
+}
+
+/* Auf schmalen Geraeten etwas kleiner und naeher an die Ecke */
+@media (max-width: 560px) {
+    .back-to-top {
+        right: calc(16px + env(safe-area-inset-right, 0px));
+        bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+        width: 42px;
+        height: 42px;
+    }
+}
+
+/* Kein Zappeln, wenn der Nutzer weniger Bewegung wuenscht */
+@media (prefers-reduced-motion: reduce) {
+    .back-to-top {
+        transition: opacity 0.01ms;
+        transform: none;
+    }
+    .back-to-top.is-visible,
+    .back-to-top:hover,
+    .back-to-top:active {
+        transform: none;
+        animation: none;
+    }
+}
+
+/* Sehr schmale Geraete (kleine Handys, 320-380px)
+   Gemessen bei 320px: Logo (164px) und Aktionen (124px) brauchen zusammen
+   289px, verfuegbar sind nach Innenabstand nur 266px. Schmalerer Rand und
+   kleineres Logo schaffen den noetigen Platz. Steht bewusst am Dateiende,
+   damit es den 560px-Block nicht ungewollt ueberschreibt. */
+@media (max-width: 380px) {
+    .nav-container {
+        padding: 0 12px;
+        gap: 6px;
+    }
+
+    .nav-logo {
+        font-size: 0.82rem;
     }
 }
