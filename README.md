@@ -1,37 +1,40 @@
-# Hi, ich bin Emin Girimhanov 👋
+# Hi, ich bin Emin Girimhanov
 
 Ich studiere Wirtschaftsinformatik an der Otto-von-Guericke-Universität Magdeburg. Als Werkstudent bei der Falcos GmbH arbeite ich an Systemen im Public Sector und baue Web-Anwendungen.
 
-🌐 **Offizielle Webseite & Portfolio:** [emin-girimhanov.de](https://emin-girimhanov.de/)
+Offizielle Webseite & Portfolio: [emin-girimhanov.de](https://emin-girimhanov.de/)
 
-## Ausgewählte Web-Projekte & Produkte
+## Ausgewählte Web-Projekte
 
 * **[Autohaus Kleinjena](https://autohaus-kleinjena.netlify.app/)** – Autohaus-Portal mit Fahrzeug-Übersicht, Bestandssuche, Terminanfrage und responsivem Design. *(Erstellt von Emin Girimhanov)*
 * **[FIM Schulung](https://fim-schulung.de/)** – Schulungs- und E-Learning-Plattform für das Föderale Informationsmanagement im Öffentlichen Sektor. *(Gemeinsam mit Kollegin überarbeitet und optimiert)*
-* **[Falcos GmbH Public Sector](https://falcos.de)** – Automatisierte XÖV-ZUGFeRD Parser, Docusaurus-Dokumentationsportale & LLM-Prozessautomatisierungen.
+
+## Beruflich
+
+* **[Falcos GmbH](https://falcos.de)** – Werkstudent im Public Sector. Automatisierte XÖV-ZUGFeRD Parser, Docusaurus-Dokumentationsportale und LLM-Prozessautomatisierungen.
 
 ## Was ich mache
 
-* Ich entwickle automatisierte XÖV-ZUGFeRD Parser zur Reduzierung manueller Erfassungszeiten in Behörden sowie Docusaurus-Plattformen.
-* Ich automatisiere Prozesse mit LLMs, AppScripts und Python.
-* Ich arbeite bei SIDUM e.V. an Kreditentscheidungs-Use-Cases (Expected-Goals-Modell mit d-fine) zur Risiko-Optimierung im Ressort Finanzen & Recht.
-* Ich steuere Event-Leitung & Logistik für 150+ Erstsemester am Fachschaftsrat FIN und skaliere das interne Wiki.
+* Bei der Falcos GmbH entwickle ich automatisierte XÖV-ZUGFeRD Parser, die manuelle Erfassungszeiten in Behörden reduzieren, dazu Docusaurus-Plattformen.
+* Prozesse automatisiere ich mit LLMs, AppScripts und Python.
+* Im Ressort Finanzen & Recht bei SIDUM e.V. arbeite ich an Kreditentscheidungs-Use-Cases – ein Expected-Goals-Modell, entstanden in Zusammenarbeit mit d-fine.
+* Am Fachschaftsrat FIN steuere ich Event-Leitung und Logistik für 150+ Erstsemester und baue das interne Wiki aus.
 * Ich konstruiere 3D-Druck-Projekte mit Raspberry Pi und erstelle CAD-Modelle für Raumplanung.
-* Ich betreibe FOSS und Self-Hosting-Dienste wie Proxmox, Nextcloud, Paperless und n8n.
+* Auf einem eigenen Proxmox-Cluster laufen Nextcloud, Paperless-ngx und n8n.
 
 ## Auszeichnungen & Zertifikate
 
-* **Online-Stipendium:** [e-fellows.net](https://www.e-fellows.net/) (seit 09.2025)
-* **Zertifikate:** Certified ScrumMaster (CSM, Scrum Alliance 2025), FIM-Methodenexperte (Falcos GmbH 2025), FIM-Informationsmanager
-* **Preise:** Sonderpreis für Digitalisierung (CJD Droyßig)
+* Online-Stipendium: [e-fellows.net](https://www.e-fellows.net/) (seit 09.2025)
+* Zertifikate: Certified ScrumMaster (CSM, Scrum Alliance 2025), FIM-Methodenexperte (Falcos GmbH 2025), FIM-Informationsmanager
+* Preise: Sonderpreis für Digitalisierung (CJD Droyßig)
 
 ## Kenntnisse
 
-* **Programmierung & Daten:** Java, Python, Web (HTML, CSS, JavaScript), SQL & Datenbanken, Git
-* **Self-Hosting:** Proxmox VE, n8n, Nextcloud, Paperless-ngx, Stirling-PDF, Firefly III, SearXNG
-* **Methoden:** XÖV-Modellierung, CAD & 3D-Druck (FDM), Scrum
-* **Consulting & Recht:** Finanzen & Recht (SIDUM e.V.), PwC GenAI Masterclass, d-fine Kreditentscheidungs-Modelle
-* **Sprachen:** Deutsch (Muttersprache), Englisch (kommunikationssicher)
+* Programmierung & Daten: Java, Python, Web (HTML, CSS, JavaScript), SQL & Datenbanken, Git
+* Self-Hosting: Proxmox VE, n8n, Nextcloud, Paperless-ngx, Stirling-PDF, Firefly III, SearXNG
+* Methoden: XÖV-Modellierung, CAD & 3D-Druck (FDM), Scrum
+* Consulting & Recht: Finanzen & Recht (SIDUM e.V.), PwC GenAI Masterclass, d-fine Kreditentscheidungs-Modelle
+* Sprachen: Deutsch (Muttersprache), Englisch (kommunikationssicher)
 
 ## Erfahrungen & Projekte
 
@@ -49,15 +52,15 @@ Ich studiere Wirtschaftsinformatik an der Otto-von-Guericke-Universität Magdebu
 <br/>
 
 <details>
-<summary><b>🇬🇧 Click here for the English version</b></summary>
+<summary><b>Click here for the English version</b></summary>
 
 <br/>
 
-# Hi, I am Emin Girimhanov 👋
+# Hi, I am Emin Girimhanov
 
-I study Business Informatics at Otto von Guericke University Magdeburg. I work as a public sector software developer at Falcos GmbH and build web applications.
+I study Business Informatics at Otto von Guericke University Magdeburg. I work as a working student in public sector software development at Falcos GmbH and build web applications.
 
-🌐 **Website & Portfolio:** [emin-girimhanov.de](https://emin-girimhanov.de/)
+Website & Portfolio: [emin-girimhanov.de](https://emin-girimhanov.de/)
 
 ## Featured Web Projects
 
@@ -68,7 +71,7 @@ I study Business Informatics at Otto von Guericke University Magdeburg. I work a
 
 ## Kontakt
 
-* **Webseite:** [emin-girimhanov.de](https://emin-girimhanov.de/)
-* **GitHub:** [github.com/emin-girimhanov](https://github.com/emin-girimhanov)
-* **LinkedIn:** [linkedin.com/in/emin-girimhanov](https://www.linkedin.com/in/emin-girimhanov/)
-* **E-Mail:** emin.girimhanov@posteo.de
+* Webseite: [emin-girimhanov.de](https://emin-girimhanov.de/)
+* GitHub: [github.com/emin-girimhanov](https://github.com/emin-girimhanov)
+* LinkedIn: [linkedin.com/in/emin-girimhanov](https://www.linkedin.com/in/emin-girimhanov/)
+* E-Mail: emin.girimhanov@posteo.de

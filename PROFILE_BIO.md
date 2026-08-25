@@ -5,10 +5,10 @@
 Füge eine dieser Optionen in deinen Profil-Einstellungen unter `Settings > Profile > Bio` ein:
 
 ### Option A (Deutsch, Fokus Beruf & Studium)
-> B.Sc. Wirtschaftsinformatik @OVGU | Softwareentwickler im Public Sector @Falcos GmbH | FOSS, Web & Python. 🚀
+> B.Sc. Wirtschaftsinformatik @OVGU | Werkstudent im Public Sector @Falcos GmbH | FOSS, Web & Python
 
 ### Option B (Englisch, International)
-> Business Informatics Student @OVGU Magdeburg | Software Developer @Falcos GmbH | FOSS, Web & Python. 🚀
+> Business Informatics Student @OVGU Magdeburg | Working Student @Falcos GmbH | FOSS, Web & Python
 
 ---
 
