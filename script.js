@@ -32,6 +32,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const langLabel = document.getElementById('lang-label');
     let currentLang = localStorage.getItem('site-lang') || 'de';
 
+    // Die E-Mail-Adresse steht nirgends im Klartext, damit einfache Scraper sie nicht finden.
+    // Sie wird erst bei der ersten Eingabe eines Menschen (Maus, Touch, Taste, Scrollen) eingesetzt.
+    const mailAddr = () => ['ed.oetsop', String.fromCharCode(64), 'vonahmirig.nime']
+        .map(part => part.split('').reverse().join('')).reverse().join('');
+    let mailShown = false;
+    function revealMail() {
+        if (mailShown) return;
+        mailShown = true;
+        const addr = mailAddr();
+        document.querySelectorAll('.js-mail-link').forEach(a => { a.href = 'mailto:' + addr; });
+        document.querySelectorAll('.js-mail-text').forEach(el => { el.textContent = addr; });
+    }
+    ['pointermove', 'pointerdown', 'touchstart', 'keydown', 'scroll', 'focusin'].forEach(evt =>
+        window.addEventListener(evt, revealMail, { once: true, passive: true }));
+
     const textExperienceDE = "Erfahrungen & Produkte:\n 1. Falcos GmbH (Werkstudent Public Sector: XÖV-ZUGFeRD-Parser, Top-100-Verwaltungsleistungen des EU Single Digital Gateway)\n 2. OVGU Magdeburg (Übungsleiter Software Engineering, davor Tutor für Algorithmen & Datenstrukturen und Vorkurs Mathematik)\n 3. Autohaus Kleinjena (Eigenentwicklung Web-Portal & Schaufenster: https://autohaus-kleinjena.netlify.app/)\n 4. FIM Schulung (Co-Entwickler E-Learning Plattform im Public Sector: https://fim-schulung.de/)\n 5. Softwareprojekt OSCAR (selbst gewähltes Studienprojekt im Viererteam: modularer Discord-Bot zur Semesterplanung: https://github.com/emin-girimhanov/oscar-discord-bot)\n 6. SIDUM e.V. (Kreditentscheidungs-Use-Cases mit d-fine & PwC GenAI Masterclass)\n 7. Autonomer Mähroboter & CJD Droyßig 3D-Schulcampus (Digitalisierungspreis)";
     const textExperienceEN = "Experience & Products:\n 1. Falcos GmbH (working student, public sector: XÖV-ZUGFeRD parsers, top 100 services of the EU Single Digital Gateway)\n 2. OVGU Magdeburg (teaching assistant for Software Engineering, before that tutor for Algorithms & Data Structures and the maths prep course)\n 3. Autohaus Kleinjena (Full Web Portal & Car Showroom: https://autohaus-kleinjena.netlify.app/)\n 4. FIM Schulung (Co-developer E-Learning Platform Public Sector: https://fim-schulung.de/)\n 5. Software project OSCAR (self-chosen university project, team of four: modular Discord bot for semester planning: https://github.com/emin-girimhanov/oscar-discord-bot)\n 6. SIDUM e.V. (Credit decision models with d-fine & PwC GenAI Masterclass)\n 7. Autonomous Mower & CJD Droyßig 3D School Campus (Digitalization Award)";
 
@@ -47,8 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const textEngagementDE = "Gesellschaftliches Engagement (ehrenamtlich):\n 1. Fachschaftsrat FIN OVGU (Gewählter Stellvertreter: Erstsemesterwochen für 150+ Studierende, IT-Adminreferat, Wiki-Ausbau)\n 2. CJD Droyßig (Gewählter Klassensprecher, 3D-Schulcampus Digitalpreis)\n\nFachliches Engagement:\n 1. SIDUM e.V. (Ressort Finanzen & Recht, PwC GenAI Masterclass, d-fine Kreditentscheidungs-Modelle, JC-NetworkDays)";
     const textEngagementEN = "Community engagement (voluntary):\n 1. Student Council FIN OVGU (Elected Representative: Orientation weeks for 150+ students, IT Administration, Wiki expansion)\n 2. CJD Droyßig (Elected Class Representative, 3D Campus Digitalization Award)\n\nProfessional engagement:\n 1. SIDUM e.V. (Finance & Legal, PwC GenAI Masterclass, d-fine credit decision models, JC-NetworkDays)";
 
-    const textKontaktDE = "Kontakt:\n • E-Mail: emin.girimhanov@posteo.de\n • Signal: emingirimhanov.01\n • Mastodon: https://machteburch.social/@emin\n • LinkedIn: https://www.linkedin.com/in/emin-girimhanov/\n • GitHub: https://github.com/emin-girimhanov";
-    const textKontaktEN = "Contact:\n • E-Mail: emin.girimhanov@posteo.de\n • Signal: emingirimhanov.01\n • Mastodon: https://machteburch.social/@emin\n • LinkedIn: https://www.linkedin.com/in/emin-girimhanov/\n • GitHub: https://github.com/emin-girimhanov";
+    const textKontaktDE = "Kontakt:\n • E-Mail: " + mailAddr() + "\n • Signal: emingirimhanov.01\n • Mastodon: https://machteburch.social/@emin\n • LinkedIn: https://www.linkedin.com/in/emin-girimhanov/\n • GitHub: https://github.com/emin-girimhanov";
+    const textKontaktEN = "Contact:\n • E-Mail: " + mailAddr() + "\n • Signal: emingirimhanov.01\n • Mastodon: https://machteburch.social/@emin\n • LinkedIn: https://www.linkedin.com/in/emin-girimhanov/\n • GitHub: https://github.com/emin-girimhanov";
 
     // Command Aliases Map
     const aliasMap = {
@@ -401,7 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const copyEmailBtn = document.getElementById('copy-email-btn');
     if (copyEmailBtn) {
         copyEmailBtn.addEventListener('click', () => {
-            const email = "emin.girimhanov@posteo.de";
+            const email = mailAddr();
 
             function meldung(ok) {
                 const tooltip = document.getElementById('copy-tooltip');

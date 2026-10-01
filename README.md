@@ -81,4 +81,4 @@ Ich freue mich über Nachrichten zu Verwaltung, Open Source und Homelab.
 * Webseite: [emin-girimhanov.de](https://emin-girimhanov.de/)
 * Mastodon: [@emin@machteburch.social](https://machteburch.social/@emin)
 * LinkedIn: [linkedin.com/in/emin-girimhanov](https://www.linkedin.com/in/emin-girimhanov/)
-* E-Mail: emin.girimhanov@posteo.de
+* E-Mail: über [emin-girimhanov.de](https://emin-girimhanov.de/#contact)
