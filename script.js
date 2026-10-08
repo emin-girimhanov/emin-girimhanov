@@ -237,8 +237,8 @@ document.addEventListener('DOMContentLoaded', () => {
             en: 'Volunteering:\n • FIN student council: orientation weeks in winter and summer (150+ and 80+ students), IT administration, wiki\n • CJD Droyßig: class representative\n\nProfessional:\n • SIDUM e.V.: workshop with d-fine, PwC GenAI Masterclass'
         },
         ewoche: {
-            de: 'E-Woche der Fakultät für Informatik:\n • Koordination für den Fachschaftsrat FIN, Winter- und Sommersemester\n • 150+ Erstis im Winter, 80+ im Sommer\n • bis zu 20 Freiwillige, eigenes Portal für Mentor:innen und Helfende\n • Campusrallye (Passierschein A38), Stundenplanbau, Stadtrallye, Party\n • Motto eines Impulses: "Dare to have fun"',
-            en: 'Orientation week of the Faculty of Computer Science:\n • coordinated for the FIN student council, winter and summer semester\n • 150+ students in winter, 80+ in summer\n • up to 20 volunteers, my own portal for mentors and helpers\n • campus rally (permit A38), timetable building, city rally, party\n • motto of one talk: "Dare to have fun"'
+            de: 'E-Woche der Fakultät für Informatik:\n • Koordination für den Fachschaftsrat FIN, Winter- und Sommersemester\n • 150+ Erstis im Winter, 80+ im Sommer\n • bis zu 20 Freiwillige, eigenes Portal für Mentor:innen und Helfende\n • Campusrallye (Passierschein A38), Stundenplanbau, Stadtrallye, Party\n • Di.Day, Spieleabend, Instaparty, Abschlussgrillen\n • Programm: https://farafin.de/erstsemester/e-woche/',
+            en: 'Orientation week of the Faculty of Computer Science:\n • coordinated for the FIN student council, winter and summer semester\n • 150+ students in winter, 80+ in summer\n • up to 20 volunteers, my own portal for mentors and helpers\n • campus rally (permit A38), timetable building, city rally, party\n • Di.Day, games night, party, closing barbecue\n • Programme: https://farafin.de/erstsemester/e-woche/'
         },
         interessen: {
             de: "Prozessautomatisierung mit n8n und LLMs, digitale Souveränität Europas, Finanzbildung (Finanztip, Finanzfluss), IT-Podcasts (Kuketz, c't 3003).",

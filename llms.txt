@@ -15,6 +15,7 @@
 - [Autohaus Kleinjena](https://autohaus-kleinjena.netlify.app/): Webseite für ein Autohaus mit Fahrzeugübersicht, Filter und Formular für Service-Anfragen, allein entwickelt.
 - [OSCAR Semesterplaner](https://github.com/emin-girimhanov/oscar-discord-bot): Discord-Bot für Modulwahl und Semesterplanung an der OVGU, Studienprojekt im Viererteam, Python, Apache 2.0. [Dokumentation](https://emin-girimhanov.github.io/oscar-discord-bot/)
 - [FIM Schulung](https://fim-schulung.de/): Lernportal für das Föderale Informationsmanagement, im Zweierteam überarbeitet.
+- [E-Woche der Fakultät für Informatik](https://farafin.de/erstsemester/e-woche/): Einführungswoche für neue Bachelor- und Masterstudierende, zweisprachig, mit Campus- und Stadtrallye, Studiumsplanung, Di.Day (Digital Independence Day) und Abendprogramm. Von Emin Girimhanov für den Fachschaftsrat koordiniert.
 - [E-Woche-Portal](https://github.com/emin-girimhanov/e-week-mentor-website): Portal für Mentor:innen und Helfende der Einführungswoche.
 - Autonomer Mähroboter: Raspberry Pi, Python, 3D-Druck, Schulprojekt im Zweierteam.
 - Schulcampus-Modell 1:150: CAD und 3D-Druck des CJD Droyßig, Sonderpreis für Digitalisierung 2024.
