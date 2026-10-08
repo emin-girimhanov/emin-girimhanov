@@ -255,14 +255,8 @@ document.addEventListener('DOMContentLoaded', () => {
         result.className = 't-result';
         terminalOutput.appendChild(result);
 
-        if (reduceMotion.matches) {
-            result.textContent = text;
-            terminalOutput.scrollTop = terminalOutput.scrollHeight;
-            announce(text);
-            return;
-        }
-
-        // Schreibanimation, schnell genug zum Mitlesen
+        // Schreibanimation, Zeichen fuer Zeichen. Laeuft bewusst auch bei
+        // reduzierter Bewegung: es bewegt sich nichts ueber den Bildschirm.
         const cursor = document.createElement('span');
         cursor.className = 'terminal-cursor';
         cursor.textContent = '▌';
@@ -270,8 +264,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let i = 0;
         typingTimer = setInterval(() => {
             if (i < text.length) {
-                cursor.before(text.slice(i, i + 2));
-                i += 2;
+                cursor.before(text.charAt(i));
+                i += 1;
                 terminalOutput.scrollTop = terminalOutput.scrollHeight;
             } else {
                 clearInterval(typingTimer);
@@ -279,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cursor.remove();
                 announce(text);
             }
-        }, 12);
+        }, 13);
     }
 
     if (terminalInput) {
