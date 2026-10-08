@@ -3,212 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datenschutzerklärung | Emin Girimhanov</title>
-    <meta name="description" content="Datenschutzerklärung gemäß DSGVO (GDPR) und TDDDG von Emin Girimhanov. Information über Datenverarbeitung, Hosting (Vercel) und Ihre Rechte.">
+    <title>Datenschutz | Emin Girimhanov</title>
+    <meta name="description" content="Datenschutzerklärung von Emin Girimhanov: welche Daten beim Besuch dieser Webseite verarbeitet werden.">
     <meta name="robots" content="noindex, follow">
+    <meta name="color-scheme" content="light dark">
     <link rel="canonical" href="https://emin-girimhanov.de/datenschutz.html">
 
     <!-- Selbst gehostete Schriften: kein Google-CDN, keine US-Uebertragung (DSGVO) -->
     <link rel="preload" href="assets/fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="assets/fonts/fonts.css">
     <link rel="stylesheet" href="style.css">
-    
-    <style>
-        .legal-page-container {
-            max-width: 860px;
-            margin: 120px auto 60px;
-            padding: 0 24px;
-        }
-        .back-nav {
-            margin-bottom: 24px;
-        }
-        .legal-card {
-            padding: 40px;
-            border-radius: var(--radius-lg);
-        }
-        .legal-header {
-            margin-bottom: 32px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
-        }
-        .legal-title {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--text-main);
-            margin-bottom: 8px;
-        }
-        .legal-subtitle {
-            color: var(--cyan);
-            font-size: 0.95rem;
-            font-family: var(--font-code);
-        }
-        .legal-block {
-            margin-bottom: 28px;
-        }
-        .legal-block h2 {
-            font-size: 1.25rem;
-            color: var(--primary);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .legal-block p, .legal-block ul {
-            color: var(--text-muted);
-            font-size: 0.98rem;
-            line-height: 1.7;
-        }
-        .legal-block ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        .legal-block li {
-            margin-bottom: 8px;
-            position: relative;
-            padding-left: 20px;
-        }
-        .legal-block li::before {
-            content: "•";
-            color: var(--cyan);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-        }
-        .legal-link {
-            color: var(--cyan);
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
-    <a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+    <a href="#main-content" class="skip-link">Zum Inhalt springen</a>
 
-    <div class="ambient-light" aria-hidden="true">
-        <canvas id="canvas-ui-bg"></canvas>
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-    </div>
-
-    <!-- Navigation Header -->
-    <header class="navbar" role="banner">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo" aria-label="Emin Girimhanov Startseite">
-                <span class="logo-accent" aria-hidden="true">&lt;</span>Emin Girimhanov<span class="logo-accent" aria-hidden="true"> /&gt;</span>
-            </a>
-            <div class="nav-actions">
-                <a href="index.html" class="btn btn-secondary btn-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Zurück zur Startseite
-                </a>
-            </div>
+    <header class="site-header">
+        <div class="wrap header-inner">
+            <a href="index.html" class="site-name">Emin Girimhanov</a>
+            <a href="index.html" class="nav-back">Zurück zur Startseite</a>
         </div>
     </header>
 
-    <main id="main-content" class="legal-page-container">
-        <div class="back-nav">
-            <a href="index.html" class="live-url-link">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Zurück zur Hauptseite
-            </a>
-        </div>
+    <main id="main-content" class="wrap legal">
+        <h1>Datenschutzerklärung</h1>
 
-        <article class="glass-card legal-card">
-            <div class="legal-header">
-                <h1 class="legal-title">Datenschutzerklärung</h1>
-                <p class="legal-subtitle">Information über die Erhebung und Verarbeitung personenbezogener Daten gemäß DSGVO</p>
-            </div>
+        <h2>Verantwortlicher</h2>
+        <p>
+            Emin Girimhanov<br>
+            Helmholtzstraße 38<br>
+            39112 Magdeburg<br>
+            E-Mail: <a href="#" class="js-mail-link"><span class="js-mail-text">E-Mail anzeigen</span></a><noscript> (emin.girimhanov [at] posteo [punkt] de)</noscript>
+        </p>
 
-            <div class="legal-block">
-                <h2>1. Datenschutz auf einen Blick</h2>
-                <p>
-                    Der Schutz Ihrer persönlichen Daten ist mir ein wichtiges Anliegen. Diese Datenschutzerklärung informiert Sie darüber, welche Daten beim Besuch dieser Webseite verarbeitet werden und welche Rechte Ihnen zustehen.
-                </p>
-            </div>
+        <h2>Hosting und Server-Logs (Vercel)</h2>
+        <p>Diese Webseite wird bei Vercel Inc. (440 N Barranca Ave #4133, Covina, CA 91723, USA) gehostet. Beim Aufruf speichert Vercel automatisch Informationen, die dein Browser übermittelt:</p>
+        <ul>
+            <li>IP-Adresse (gekürzt)</li>
+            <li>Datum und Uhrzeit der Anfrage</li>
+            <li>aufgerufene Seite</li>
+            <li>zuvor besuchte Seite (Referrer)</li>
+            <li>Browser und Betriebssystem</li>
+        </ul>
+        <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Mein berechtigtes Interesse ist, die Seite stabil und sicher auszuliefern.</p>
 
-            <div class="legal-block">
-                <h2>2. Verantwortliche Stelle</h2>
-                <p>
-                    Verantwortlicher für die Datenverarbeitung auf dieser Webseite im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:
-                </p>
-                <p style="margin-top: 8px;">
-                    <strong>Emin Girimhanov</strong><br>
-                    Helmholtzstraße 38<br>
-                    39112 Magdeburg<br>
-                    Deutschland<br>
-                    <strong>E-Mail:</strong> <a href="#" class="legal-link js-mail-link"><span class="js-mail-text">E-Mail anzeigen</span></a><noscript> (emin.girimhanov [at] posteo [punkt] de)</noscript><br>
-                    <strong>Signal:</strong> <a href="https://signal.me/#u/emingirimhanov.01" target="_blank" rel="noopener noreferrer" class="legal-link">emingirimhanov.01</a>
-                </p>
-            </div>
+        <h2>Vercel Speed Insights</h2>
+        <p>Um Ladezeiten zu messen, nutze ich Vercel Speed Insights. Erfasst werden nur anonyme Leistungswerte wie Ladezeiten. Es gibt keine Cookies und keine Profile. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.</p>
 
-            <div class="legal-block">
-                <h2>3. Bereitstellung der Webseite &amp; Server-Log-Files (Vercel)</h2>
-                <p>
-                    Diese Webseite wird bei <strong>Vercel Inc.</strong> (440 N Barranca Ave #4133, Covina, CA 91723, USA) gehostet.
-                </p>
-                <p style="margin-top: 8px;">
-                    Beim Aufrufen der Webseite erhebt der Hosting-Anbieter automatisch Informationen, die Ihr Browser übermittelt (sog. Server-Log-Files). Dies beinhaltet:
-                </p>
-                <ul>
-                    <li>IP-Adresse des zugreifenden Geräts (anonymisiert/gekürzt)</li>
-                    <li>Datum und Uhrzeit der Serveranfrage</li>
-                    <li>Aufgerufene URL / Dateipfad</li>
-                    <li>Referrer URL (die zuvor besuchte Seite)</li>
-                    <li>Browsertyp, Version und Betriebssystem</li>
-                </ul>
-                <p style="margin-top: 8px;">
-                    <strong>Rechtsgrundlage:</strong> Die Verarbeitung erfolgt gemäß Art. 6 Abs. 1 lit. f DSGVO auf Grundlage meines berechtigten Interesses an der technisch fehlerfreien Bereitstellung, Stabilität und Sicherheit der Webseite.
-                </p>
-            </div>
+        <h2>Kontakt per E-Mail oder sozialen Netzwerken</h2>
+        <p>Wenn du mir schreibst, speichere ich deine Nachricht und deine Kontaktdaten, um zu antworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.</p>
 
-            <div class="legal-block">
-                <h2>4. Vercel Speed Insights (Performance-Messung)</h2>
-                <p>
-                    Zur technischen Optimierung der Ladezeiten und Nutzererfahrung verwendet diese Webseite <strong>Vercel Speed Insights</strong>.
-                </p>
-                <p style="margin-top: 8px;">
-                    Hierbei werden ausschließlich anonymisierte Leistungskennzahlen (wie z.B. Core Web Vitals, Ladezeiten von Skripten) erfasst. Es werden <strong>keine personenbezogenen Daten</strong> oder Tracking-Cookies zur Profilbildung verwendet.
-                </p>
-                <p style="margin-top: 8px;">
-                    <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO (Berechtigtes Interesse an der Performance-Optimierung der Webseite).
-                </p>
-            </div>
-
-            <div class="legal-block">
-                <h2>5. Kontaktaufnahme per E-Mail oder LinkedIn</h2>
-                <p>
-                    Wenn Sie mir per E-Mail oder über soziale Netzwerke (LinkedIn/Mastodon) eine Nachricht zukommen lassen, werden Ihre Angaben inklusive der von Ihnen angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei mir gespeichert.
-                </p>
-                <p style="margin-top: 8px;">
-                    <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (sofern Ihre Anfrage mit der Erfüllung eines Vertrags oder vorvertraglichen Maßnahmen zusammenhängt) bzw. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Beantwortung von Anfragen).
-                </p>
-            </div>
-
-            <div class="legal-block">
-                <h2>6. Ihre Rechte als betroffene Person</h2>
-                <p>Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf:</p>
-                <ul>
-                    <li><strong>Auskunft (Art. 15 DSGVO):</strong> Recht auf Auskunft über Ihre von mir verarbeiteten personenbezogenen Daten.</li>
-                    <li><strong>Berichtigung (Art. 16 DSGVO):</strong> Recht auf unverzügliche Berichtigung unrichtiger Daten.</li>
-                    <li><strong>Löschung (Art. 17 DSGVO):</strong> Recht auf Löschung Ihrer bei mir gespeicherten Daten.</li>
-                    <li><strong>Einschränkung der Verarbeitung (Art. 18 DSGVO):</strong> Recht auf Einschränkung der Datenverarbeitung.</li>
-                    <li><strong>Datenübertragbarkeit (Art. 20 DSGVO):</strong> Recht auf Erhalt Ihrer Daten in einem strukturierten, gängigen Format.</li>
-                    <li><strong>Widerspruchsrecht (Art. 21 DSGVO):</strong> Recht aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit gegen die Verarbeitung Widerspruch einzulegen.</li>
-                </ul>
-                <p style="margin-top: 12px;">
-                    Möchten Sie von Ihren Rechten Gebrauch machen, genügt eine formlose E-Mail an: <a href="#" class="legal-link js-mail-link"><span class="js-mail-text">E-Mail anzeigen</span></a><noscript> (emin.girimhanov [at] posteo [punkt] de)</noscript>.
-                </p>
-                <p style="margin-top: 8px;">
-                    Zudem steht Ihnen ein <strong>Beschwerderecht bei der zuständigen Datenschutzaufsichtsbehörde</strong> zu (Landesbeauftragter für den Datenschutz Sachsen-Anhalt).
-                </p>
-            </div>
-        </article>
+        <h2>Deine Rechte</h2>
+        <p>Du hast das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21 DSGVO). Eine formlose E-Mail genügt.</p>
+        <p>Außerdem kannst du dich beim Landesbeauftragten für den Datenschutz Sachsen-Anhalt beschweren.</p>
     </main>
 
-    <footer class="footer">
-        <div class="container footer-content">
-            <p>&copy; 2026 Emin Girimhanov. Alle Rechte vorbehalten.</p>
-            <div class="footer-links">
-                <a href="impressum.html">Impressum</a>
-                <a href="datenschutz.html">Datenschutz</a>
-            </div>
+    <footer class="site-footer">
+        <div class="wrap footer-inner">
+            <p>&copy; 2026 Emin Girimhanov, Magdeburg</p>
+            <p><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
         </div>
     </footer>
 
