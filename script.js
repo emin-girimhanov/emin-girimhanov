@@ -166,12 +166,12 @@ document.addEventListener('DOMContentLoaded', () => {
             en: 'since 10/2026  Teaching assistant Software Engineering, OVGU\nsince 06/2025  Working student software development, Falcos GmbH (XÖV, ZUGFeRD)\nsince 04/2025  SIDUM e.V., finance & legal\nsince 03/2025  Deputy, FIN student council\nsince 10/2024  B.Sc. Business Informatics, OVGU Magdeburg (ahead of the standard study plan)\n      06/2024  Abitur, CJD Droyßig'
         },
         engagement: {
-            de: 'Ehrenamt:\n • Fachschaftsrat FIN: zwei Erstsemesterwochen (150 und 80 Studierende), IT-Administration, Wiki\n • CJD Droyßig: Klassensprecher\n\nFachlich:\n • SIDUM e.V.: Workshop mit d-fine, PwC GenAI Masterclass',
-            en: 'Volunteering:\n • FIN student council: two orientation weeks (150 and 80 students), IT administration, wiki\n • CJD Droyßig: class representative\n\nProfessional:\n • SIDUM e.V.: workshop with d-fine, PwC GenAI Masterclass'
+            de: 'Ehrenamt:\n • Fachschaftsrat FIN: Erstsemesterwochen im Winter- und Sommersemester (150+ und 80+ Studierende), IT-Administration, Wiki\n • CJD Droyßig: Klassensprecher\n\nFachlich:\n • SIDUM e.V.: Workshop mit d-fine, PwC GenAI Masterclass',
+            en: 'Volunteering:\n • FIN student council: orientation weeks in winter and summer (150+ and 80+ students), IT administration, wiki\n • CJD Droyßig: class representative\n\nProfessional:\n • SIDUM e.V.: workshop with d-fine, PwC GenAI Masterclass'
         },
         ewoche: {
-            de: 'E-Woche der Fakultät für Informatik:\n • Koordination für den Fachschaftsrat FIN, 150+ und 80+ Erstis\n • bis zu 20 Freiwillige, eigenes Portal für Mentor:innen und Helfende\n • Campusrallye (Passierschein A38), Stundenplanbau, Stadtrallye, Party\n • Motto eines Impulses: "Dare to have fun"',
-            en: 'Orientation week of the Faculty of Computer Science:\n • coordinated for the FIN student council, 150+ and 80+ students\n • up to 20 volunteers, my own portal for mentors and helpers\n • campus rally (permit A38), timetable building, city rally, party\n • motto of one talk: "Dare to have fun"'
+            de: 'E-Woche der Fakultät für Informatik:\n • Koordination für den Fachschaftsrat FIN, Winter- und Sommersemester\n • 150+ Erstis im Winter, 80+ im Sommer\n • bis zu 20 Freiwillige, eigenes Portal für Mentor:innen und Helfende\n • Campusrallye (Passierschein A38), Stundenplanbau, Stadtrallye, Party\n • Motto eines Impulses: "Dare to have fun"',
+            en: 'Orientation week of the Faculty of Computer Science:\n • coordinated for the FIN student council, winter and summer semester\n • 150+ students in winter, 80+ in summer\n • up to 20 volunteers, my own portal for mentors and helpers\n • campus rally (permit A38), timetable building, city rally, party\n • motto of one talk: "Dare to have fun"'
         },
         interessen: {
             de: "Prozessautomatisierung mit n8n und LLMs, digitale Souveränität Europas, Finanzbildung (Finanztip, Finanzfluss), IT-Podcasts (Kuketz, c't 3003).",
