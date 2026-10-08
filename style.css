@@ -83,6 +83,33 @@ p { margin: 0 0 1em; }
     backdrop-filter: blur(8px);
 }
 
+/* Markenfarben beim Hover: Falcos gruen, OVGU beere, e-fellows orange */
+.falcos-link, .ovgu-link, .efellows-link {
+    color: inherit;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1.5px dashed var(--brand-soft);
+    padding-bottom: 1px;
+    transition: color 0.25s ease, text-shadow 0.25s ease, border-color 0.25s ease;
+}
+.falcos-link:hover, .falcos-link:focus-visible,
+.ovgu-link:hover, .ovgu-link:focus-visible,
+.efellows-link:hover, .efellows-link:focus-visible {
+    color: var(--brand);
+    border-bottom-color: var(--brand);
+    border-bottom-style: solid;
+    text-shadow: 0 0 14px var(--brand-glow);
+}
+.falcos-link { --brand: #3a8f33; --brand-soft: rgb(67 165 59 / 0.5); --brand-glow: rgb(67 165 59 / 0.45); }
+.ovgu-link { --brand: #7a003f; --brand-soft: rgb(122 0 63 / 0.5); --brand-glow: rgb(158 0 82 / 0.4); }
+.efellows-link { --brand: #d96700; --brand-soft: rgb(254 124 9 / 0.55); --brand-glow: rgb(254 124 9 / 0.45); white-space: nowrap; }
+
+@media (prefers-color-scheme: dark) {
+    .falcos-link { --brand: #5cc152; --brand-glow: rgb(67 165 59 / 0.6); }
+    .ovgu-link { --brand: #e0468f; --brand-soft: rgb(224 70 143 / 0.55); --brand-glow: rgb(224 70 143 / 0.6); }
+    .efellows-link { --brand: #fe7c09; --brand-glow: rgb(254 124 9 / 0.65); }
+}
+
 /* Kopfzeile breiter als der Text, damit Name, Menue und Sprache in eine Zeile passen */
 .site-header .wrap { max-width: 980px; }
 
