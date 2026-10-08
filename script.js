@@ -169,13 +169,17 @@ document.addEventListener('DOMContentLoaded', () => {
             de: 'Ehrenamt:\n • Fachschaftsrat FIN: zwei Erstsemesterwochen (150 und 80 Studierende), IT-Administration, Wiki\n • CJD Droyßig: Klassensprecher\n\nFachlich:\n • SIDUM e.V.: Workshop mit d-fine, PwC GenAI Masterclass',
             en: 'Volunteering:\n • FIN student council: two orientation weeks (150 and 80 students), IT administration, wiki\n • CJD Droyßig: class representative\n\nProfessional:\n • SIDUM e.V.: workshop with d-fine, PwC GenAI Masterclass'
         },
+        ewoche: {
+            de: 'E-Woche der Fakultät für Informatik:\n • Koordination für den Fachschaftsrat FIN, 150+ und 80+ Erstis\n • bis zu 20 Freiwillige, eigenes Portal für Mentor:innen und Helfende\n • Campusrallye (Passierschein A38), Stundenplanbau, Stadtrallye, Party\n • Motto eines Impulses: "Dare to have fun"',
+            en: 'Orientation week of the Faculty of Computer Science:\n • coordinated for the FIN student council, 150+ and 80+ students\n • up to 20 volunteers, my own portal for mentors and helpers\n • campus rally (permit A38), timetable building, city rally, party\n • motto of one talk: "Dare to have fun"'
+        },
         interessen: {
             de: "Prozessautomatisierung mit n8n und LLMs, digitale Souveränität Europas, Finanzbildung (Finanztip, Finanzfluss), IT-Podcasts (Kuketz, c't 3003).",
             en: "Process automation with n8n and LLMs, European digital sovereignty, financial literacy (Finanztip, Finanzfluss), IT podcasts (Kuketz, c't 3003)."
         },
         help: {
-            de: 'Befehle: whoami, projekte, skills, erfahrung, engagement, interessen, kontakt, impressum, clear',
-            en: 'Commands: whoami, projects, skills, experience, engagement, interests, contact, impressum, clear'
+            de: 'Befehle: whoami, projekte, ewoche, skills, erfahrung, engagement, interessen, kontakt, impressum, clear',
+            en: 'Commands: whoami, projects, ewoche, skills, experience, engagement, interests, contact, impressum, clear'
         }
     };
 
@@ -184,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
         projects: 'projekte', webseiten: 'projekte', websites: 'projekte',
         kenntnisse: 'skills', tech: 'skills', stack: 'skills', zertifikate: 'skills',
         experience: 'erfahrung', werdegang: 'erfahrung', cv: 'erfahrung',
-        ehrenamt: 'engagement', sidum: 'engagement', farafin: 'engagement',
+        ehrenamt: 'engagement', 'e-woche': 'ewoche', ersti: 'ewoche', erstis: 'ewoche', orientation: 'ewoche', sidum: 'engagement', farafin: 'engagement',
         interests: 'interessen', hobbys: 'interessen', podcasts: 'interessen',
         contact: 'kontakt', email: 'kontakt', mail: 'kontakt',
         imprint: 'impressum', legal: 'impressum',
@@ -303,7 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Einblenden beim Scrollen ---
     if ('IntersectionObserver' in window && !reduceMotion.matches) {
         document.documentElement.classList.add('js-reveal');
-        const revealTargets = document.querySelectorAll('.project, .cv li, .facts, #ueber-mich p, .terminal');
+        const revealTargets = document.querySelectorAll('.project, .cv li, .facts, #ueber-mich p, .terminal, .ewoche-figure');
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
