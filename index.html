@@ -99,10 +99,10 @@
             <a href="#" class="site-name">Emin Girimhanov</a>
             <nav aria-label="Hauptnavigation">
                 <ul class="nav">
+                    <li><a href="#konsole" data-de="Konsole" data-en="Console">Konsole</a></li>
                     <li><a href="#projekte" data-de="Projekte" data-en="Projects">Projekte</a></li>
                     <li><a href="#werdegang" data-de="Werdegang" data-en="Experience">Werdegang</a></li>
                     <li><a href="#ueber-mich" data-de="Über mich" data-en="About">Über mich</a></li>
-                    <li><a href="#konsole" data-de="Konsole" data-en="Console">Konsole</a></li>
                     <li><a href="#kontakt" data-de="Kontakt" data-en="Contact">Kontakt</a></li>
                 </ul>
             </nav>
@@ -116,6 +116,7 @@
         <section class="intro" id="top" aria-labelledby="intro-title">
             <img src="assets/img/emin-girimhanov.jpg" alt="Porträtfoto von Emin Girimhanov" class="portrait" width="112" height="112">
             <div>
+                <p class="status"><span class="status-dot" aria-hidden="true"></span><span data-de="Aktuell bei Falcos und an der OVGU" data-en="Currently at Falcos and OVGU">Aktuell bei Falcos und an der OVGU</span></p>
                 <h1 id="intro-title">Emin Girimhanov</h1>
                 <p class="role" data-de="Softwareentwickler und Student der Wirtschaftsinformatik in Magdeburg" data-en="Software developer and business informatics student in Magdeburg">Softwareentwickler und Student der Wirtschaftsinformatik in Magdeburg</p>
             </div>
@@ -125,6 +126,12 @@
             Ich studiere Wirtschaftsinformatik an der <a href="https://www.ovgu.de/" target="_blank" rel="noopener noreferrer">OVGU Magdeburg</a> und arbeite als Werkstudent bei der <a href="https://falcos.de" target="_blank" rel="noopener noreferrer">Falcos GmbH</a>. Dort schreibe ich Software für Behörden, zum Beispiel Parser für Rechnungen nach den Standards XÖV und ZUGFeRD. An der Fakultät für Informatik leite ich eine Übung in Software Engineering.
         </p>
 
+        <ul class="quick-facts">
+            <li><strong>OVGU</strong> <span data-de="B.Sc. Wirtschaftsinformatik" data-en="B.Sc. Business Informatics">B.Sc. Wirtschaftsinformatik</span></li>
+            <li><strong>Falcos GmbH</strong> <span data-de="Softwareentwicklung, Public Sector" data-en="Software development, public sector">Softwareentwicklung, Public Sector</span></li>
+            <li><strong>e-fellows.net</strong> <span data-de="Stipendiat" data-en="Scholar">Stipendiat</span></li>
+        </ul>
+
         <ul class="links-inline">
             <li><a href="#kontakt" class="js-mail-link" data-de="E-Mail" data-en="Email">E-Mail</a></li>
             <li><a href="https://github.com/emin-girimhanov" target="_blank" rel="noopener noreferrer">GitHub</a></li>
@@ -132,22 +139,49 @@
             <li><a href="https://machteburch.social/@emin" target="_blank" rel="me noopener noreferrer">Mastodon</a></li>
         </ul>
 
+        <!-- Konsole -->
+        <section id="konsole" class="section" aria-labelledby="konsole-title">
+            <h2 id="konsole-title" data-de="Konsole" data-en="Console">Konsole</h2>
+            <p class="meta" data-de="Für alle, die lieber tippen als scrollen." data-en="For everyone who would rather type than scroll.">Für alle, die lieber tippen als scrollen.</p>
+
+            <div class="terminal">
+                <div class="terminal-bar" aria-hidden="true"><span></span><span></span><span></span><em>emin@ovgu: ~</em></div>
+                <div class="terminal-body" id="terminal-output" role="log" aria-label="Terminal-Ausgabe">
+                    <p><span class="t-prompt">emin@ovgu:~$</span> help</p>
+                    <p class="t-info" data-de="Befehle: whoami, projekte, skills, erfahrung, engagement, interessen, kontakt, impressum, clear" data-en="Commands: whoami, projects, skills, experience, engagement, interests, contact, impressum, clear">Befehle: whoami, projekte, skills, erfahrung, engagement, interessen, kontakt, impressum, clear</p>
+                </div>
+                <div class="terminal-input-row">
+                    <label for="terminal-input" class="t-prompt">emin@ovgu:~$</label>
+                    <input type="text" id="terminal-input" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="help" aria-label="Befehl eingeben">
+                </div>
+            </div>
+            <div class="terminal-presets">
+                <button type="button" class="preset-btn" data-cmd="whoami">whoami</button>
+                <button type="button" class="preset-btn" data-cmd="projekte">projekte</button>
+                <button type="button" class="preset-btn" data-cmd="skills">skills</button>
+                <button type="button" class="preset-btn" data-cmd="erfahrung">erfahrung</button>
+                <button type="button" class="preset-btn" data-cmd="interessen">interessen</button>
+                <button type="button" class="preset-btn" data-cmd="kontakt">kontakt</button>
+            </div>
+        </section>
+
         <!-- Projekte -->
         <section id="projekte" class="section" aria-labelledby="projekte-title">
             <h2 id="projekte-title" data-de="Projekte" data-en="Projects">Projekte</h2>
 
             <article class="project">
-                <img src="assets/img/autohaus_kleinjena.jpg" alt="Startseite der Webseite Autohaus Kleinjena" class="project-img" loading="lazy">
+                <button type="button" class="img-btn" data-lightbox aria-label="Bild vergrößern: Startseite der Webseite Autohaus Kleinjena" data-de-label="Bild vergrößern: Startseite der Webseite Autohaus Kleinjena" data-en-label="Enlarge image: Startseite der Webseite Autohaus Kleinjena"><img src="assets/img/autohaus_kleinjena.jpg" alt="Startseite der Webseite Autohaus Kleinjena" class="project-img" loading="lazy"></button>
                 <div>
                     <h3>Autohaus Kleinjena</h3>
                     <p class="meta" data-de="Webseite · allein entwickelt" data-en="Website · built on my own">Webseite · allein entwickelt</p>
                     <p data-de="Ein Autohaus ohne eigenen Webauftritt. Ich habe die Seite gebaut: Fahrzeugübersicht mit Filter und ein Formular für Service-Anfragen. HTML, CSS und JavaScript, gehostet auf Netlify." data-en="A car dealership without a website of its own. I built it: a vehicle overview with filters and a form for service requests. HTML, CSS and JavaScript, hosted on Netlify.">Ein Autohaus ohne eigenen Webauftritt. Ich habe die Seite gebaut: Fahrzeugübersicht mit Filter und ein Formular für Service-Anfragen. HTML, CSS und JavaScript, gehostet auf Netlify.</p>
                     <p class="project-links"><a href="https://autohaus-kleinjena.netlify.app/" target="_blank" rel="noopener noreferrer">autohaus-kleinjena.netlify.app</a></p>
+                    <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Netlify</li></ul>
                 </div>
             </article>
 
             <article class="project">
-                <img src="assets/img/oscar_bot.jpg" alt="Logo des OSCAR Semesterplaners" class="project-img" loading="lazy">
+                <button type="button" class="img-btn" data-lightbox aria-label="Bild vergrößern: Logo des OSCAR Semesterplaners" data-de-label="Bild vergrößern: Logo des OSCAR Semesterplaners" data-en-label="Enlarge image: Logo des OSCAR Semesterplaners"><img src="assets/img/oscar_bot.jpg" alt="Logo des OSCAR Semesterplaners" class="project-img" loading="lazy"></button>
                 <div>
                     <h3 data-de="OSCAR Semesterplaner" data-en="OSCAR semester planner">OSCAR Semesterplaner</h3>
                     <p class="meta" data-de="Discord-Bot · Softwareprojekt im Studium, Team aus vier" data-en="Discord bot · university software project, team of four">Discord-Bot · Softwareprojekt im Studium, Team aus vier</p>
@@ -157,34 +191,38 @@
                         <a href="https://emin-girimhanov.github.io/oscar-discord-bot/" target="_blank" rel="noopener noreferrer" data-de="Dokumentation" data-en="Documentation">Dokumentation</a>
                         <a href="https://discord.gg/m4vQhrK" target="_blank" rel="noopener noreferrer" data-de="Ausprobieren" data-en="Try it">Ausprobieren</a>
                     </p>
+                    <ul class="tags"><li>Python</li><li>Discord</li><li>Apache 2.0</li></ul>
                 </div>
             </article>
 
             <article class="project">
-                <img src="assets/img/fim_schulung.jpg" alt="Startseite des Lernportals FIM Schulung" class="project-img" loading="lazy">
+                <button type="button" class="img-btn" data-lightbox aria-label="Bild vergrößern: Startseite des Lernportals FIM Schulung" data-de-label="Bild vergrößern: Startseite des Lernportals FIM Schulung" data-en-label="Enlarge image: Startseite des Lernportals FIM Schulung"><img src="assets/img/fim_schulung.jpg" alt="Startseite des Lernportals FIM Schulung" class="project-img" loading="lazy"></button>
                 <div>
                     <h3>FIM Schulung</h3>
                     <p class="meta" data-de="Lernportal · Team aus zwei" data-en="Learning portal · team of two">Lernportal · Team aus zwei</p>
                     <p data-de="Lernportal für das Föderale Informationsmanagement, mit dem Behörden ihre Leistungen einheitlich beschreiben. Wir haben Navigation und Oberfläche überarbeitet, damit man sie ohne Vorwissen bedienen kann." data-en="Learning portal for Federal Information Management, the method German authorities use to describe their services in a uniform way. We reworked navigation and interface so people can use it without prior knowledge.">Lernportal für das Föderale Informationsmanagement, mit dem Behörden ihre Leistungen einheitlich beschreiben. Wir haben Navigation und Oberfläche überarbeitet, damit man sie ohne Vorwissen bedienen kann.</p>
                     <p class="project-links"><a href="https://fim-schulung.de/" target="_blank" rel="noopener noreferrer">fim-schulung.de</a></p>
+                    <ul class="tags"><li>FIM</li><li>UI/UX</li><li data-de="Barrierefreiheit" data-en="Accessibility">Barrierefreiheit</li></ul>
                 </div>
             </article>
 
             <article class="project">
-                <img src="assets/img/maehroboter_hardware.jpg" alt="Prototyp des autonomen Mähroboters" class="project-img" loading="lazy">
+                <button type="button" class="img-btn" data-lightbox aria-label="Bild vergrößern: Prototyp des autonomen Mähroboters" data-de-label="Bild vergrößern: Prototyp des autonomen Mähroboters" data-en-label="Enlarge image: Prototyp des autonomen Mähroboters"><img src="assets/img/maehroboter_hardware.jpg" alt="Prototyp des autonomen Mähroboters" class="project-img" loading="lazy"></button>
                 <div>
                     <h3 data-de="Autonomer Mähroboter" data-en="Autonomous lawn mower">Autonomer Mähroboter</h3>
-                    <p class="meta" data-de="Raspberry Pi, Python, 3D-Druck · Schulprojekt, Team aus zwei" data-en="Raspberry Pi, Python, 3D printing · school project, team of two">Raspberry Pi, Python, 3D-Druck · Schulprojekt, Team aus zwei</p>
+                    <p class="meta" data-de="Schulprojekt, Team aus zwei" data-en="School project, team of two">Schulprojekt, Team aus zwei</p>
                     <p data-de="Chassis und alle Kunststoffteile selbst konstruiert und gedruckt, Sensoren und Steuerung in Python programmiert. Am Ende fuhr er autonom." data-en="We designed and printed the chassis and all plastic parts ourselves and programmed sensors and control in Python. In the end it drove on its own.">Chassis und alle Kunststoffteile selbst konstruiert und gedruckt, Sensoren und Steuerung in Python programmiert. Am Ende fuhr er autonom.</p>
+                    <ul class="tags"><li>Raspberry Pi</li><li>Python</li><li data-de="3D-Druck" data-en="3D printing">3D-Druck</li></ul>
                 </div>
             </article>
 
             <article class="project">
-                <img src="assets/img/schulcampus_3d.jpg" alt="3D-gedrucktes Modell des Schulcampus Droyßig" class="project-img" loading="lazy">
+                <button type="button" class="img-btn" data-lightbox aria-label="Bild vergrößern: 3D-gedrucktes Modell des Schulcampus Droyßig" data-de-label="Bild vergrößern: 3D-gedrucktes Modell des Schulcampus Droyßig" data-en-label="Enlarge image: 3D-gedrucktes Modell des Schulcampus Droyßig"><img src="assets/img/schulcampus_3d.jpg" alt="3D-gedrucktes Modell des Schulcampus Droyßig" class="project-img" loading="lazy"></button>
                 <div>
                     <h3 data-de="Schulcampus-Modell 1:150" data-en="School campus model 1:150">Schulcampus-Modell 1:150</h3>
-                    <p class="meta" data-de="CAD und 3D-Druck · Team aus zwei, 2024" data-en="CAD and 3D printing · team of two, 2024">CAD und 3D-Druck · Team aus zwei, 2024</p>
+                    <p class="meta" data-de="Schulprojekt, Team aus zwei, 2024" data-en="School project, team of two, 2024">Schulprojekt, Team aus zwei, 2024</p>
                     <p data-de="Den Campus der CJD Christophorusschule Droyßig aus Bauplänen, Fotos und eigenen Messungen in CAD nachgebaut und gedruckt. Sonderpreis für Digitalisierung, das Modell steht heute im Paulusraum der Schule." data-en="We rebuilt the CJD Droyßig school campus in CAD from building plans, photos and our own measurements, then printed it. It won the special award for digitalization and now stands in the school's Paulusraum.">Den Campus der CJD Christophorusschule Droyßig aus Bauplänen, Fotos und eigenen Messungen in CAD nachgebaut und gedruckt. Sonderpreis für Digitalisierung, das Modell steht heute im Paulusraum der Schule.</p>
+                    <ul class="tags"><li>CAD</li><li data-de="3D-Druck" data-en="3D printing">3D-Druck</li><li data-de="Sonderpreis 2024" data-en="Award 2024">Sonderpreis 2024</li></ul>
                 </div>
             </article>
 
@@ -276,32 +314,6 @@
             <p data-de="Russisches Gas hat gezeigt, wie teuer einseitige Abhängigkeit ist. Bei Cloud und KI hängt Europa heute ähnlich an wenigen US-Anbietern. Ich halte offene Standards und Open Source für den Ausweg. Deshalb betreibe ich meine Dienste selbst." data-en="Russian gas showed how costly one-sided dependence is. In cloud and AI, Europe depends on a few US providers in a similar way today. I think open standards and open source are the way out. That is why I host my own services.">Russisches Gas hat gezeigt, wie teuer einseitige Abhängigkeit ist. Bei Cloud und KI hängt Europa heute ähnlich an wenigen US-Anbietern. Ich halte offene Standards und Open Source für den Ausweg. Deshalb betreibe ich meine Dienste selbst.</p>
         </section>
 
-        <!-- Konsole -->
-        <section id="konsole" class="section" aria-labelledby="konsole-title">
-            <h2 id="konsole-title" data-de="Konsole" data-en="Console">Konsole</h2>
-            <p class="meta" data-de="Für alle, die lieber tippen als scrollen." data-en="For everyone who would rather type than scroll.">Für alle, die lieber tippen als scrollen.</p>
-
-            <div class="terminal">
-                <div class="terminal-bar" aria-hidden="true"><span></span><span></span><span></span><em>emin@ovgu: ~</em></div>
-                <div class="terminal-body" id="terminal-output" role="log" aria-label="Terminal-Ausgabe">
-                    <p><span class="t-prompt">emin@ovgu:~$</span> help</p>
-                    <p class="t-info" data-de="Befehle: whoami, projekte, skills, erfahrung, engagement, interessen, kontakt, impressum, clear" data-en="Commands: whoami, projects, skills, experience, engagement, interests, contact, impressum, clear">Befehle: whoami, projekte, skills, erfahrung, engagement, interessen, kontakt, impressum, clear</p>
-                </div>
-                <div class="terminal-input-row">
-                    <label for="terminal-input" class="t-prompt">emin@ovgu:~$</label>
-                    <input type="text" id="terminal-input" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="help" aria-label="Befehl eingeben">
-                </div>
-            </div>
-            <div class="terminal-presets">
-                <button type="button" class="preset-btn" data-cmd="whoami">whoami</button>
-                <button type="button" class="preset-btn" data-cmd="projekte">projekte</button>
-                <button type="button" class="preset-btn" data-cmd="skills">skills</button>
-                <button type="button" class="preset-btn" data-cmd="erfahrung">erfahrung</button>
-                <button type="button" class="preset-btn" data-cmd="interessen">interessen</button>
-                <button type="button" class="preset-btn" data-cmd="kontakt">kontakt</button>
-            </div>
-        </section>
-
         <!-- Kontakt -->
         <section id="kontakt" class="section" aria-labelledby="kontakt-title">
             <h2 id="kontakt-title" data-de="Kontakt" data-en="Contact">Kontakt</h2>
@@ -331,6 +343,11 @@
             <p><a href="impressum.html">Impressum</a> · <a href="datenschutz.html" data-de="Datenschutz" data-en="Privacy">Datenschutz</a></p>
         </div>
     </footer>
+
+    <dialog id="lightbox" class="lightbox" aria-label="Bildansicht">
+        <form method="dialog"><button class="lightbox-close" aria-label="Schließen" data-de-label="Schließen" data-en-label="Close">&times;</button></form>
+        <img id="lightbox-img" src="" alt="">
+    </dialog>
 
     <button type="button" id="back-to-top" class="back-to-top" hidden
             data-de-label="Zurück nach oben" data-en-label="Back to top" aria-label="Zurück nach oben">

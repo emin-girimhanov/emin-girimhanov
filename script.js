@@ -289,6 +289,17 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => runCommand(btn.dataset.cmd));
     });
 
+    // Sobald die Konsole sichtbar ist, tippt sie einmal von selbst "whoami".
+    if (terminalOutput && 'IntersectionObserver' in window) {
+        const autoRun = new IntersectionObserver(entries => {
+            if (entries.some(e => e.isIntersecting)) {
+                autoRun.disconnect();
+                setTimeout(() => { if (!typingTimer) runCommand('whoami'); }, 400);
+            }
+        }, { threshold: 0.5 });
+        autoRun.observe(terminalOutput);
+    }
+
     // --- Einblenden beim Scrollen ---
     if ('IntersectionObserver' in window && !reduceMotion.matches) {
         document.documentElement.classList.add('js-reveal');
@@ -370,4 +381,41 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', updateTimeline);
     updateTimeline();
     updateBackToTop();
+
+    // --- Bildansicht ---
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    if (lightbox && lightboxImg && typeof lightbox.showModal === 'function') {
+        document.querySelectorAll('[data-lightbox]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const img = btn.querySelector('img');
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightbox.showModal();
+            });
+        });
+        // Klick neben das Bild schliesst
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) lightbox.close();
+        });
+    }
+
+    // --- Navigation: aktuellen Abschnitt markieren ---
+    const navLinks = [...document.querySelectorAll('.nav a[href^="#"]')];
+    const navSections = navLinks.map(a => document.getElementById(a.getAttribute('href').slice(1)));
+
+    function updateNav() {
+        const mark = window.innerHeight * 0.4;
+        let current = -1;
+        navSections.forEach((sec, idx) => {
+            if (sec && sec.getBoundingClientRect().top <= mark) current = idx;
+        });
+        // Ganz unten zaehlt der letzte Abschnitt, auch wenn er kurz ist
+        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+            current = navSections.length - 1;
+        }
+        navLinks.forEach((a, idx) => a.classList.toggle('active', idx === current));
+    }
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
 });
