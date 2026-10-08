@@ -83,6 +83,9 @@ p { margin: 0 0 1em; }
     backdrop-filter: blur(8px);
 }
 
+/* Kopfzeile breiter als der Text, damit Name, Menue und Sprache in eine Zeile passen */
+.site-header .wrap { max-width: 980px; }
+
 .header-inner {
     display: flex;
     align-items: center;
