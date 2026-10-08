@@ -1,0 +1,39 @@
+# Emin Girimhanov
+
+> Emin Girimhanov aus Magdeburg ist Softwareentwickler (Werkstudent) im Public Sector bei der Falcos GmbH und studiert Wirtschaftsinformatik an der Otto-von-Guericke-Universität Magdeburg (OVGU), Schwerpunkte IT-Sicherheit und Data Science. Er leitet eine Übungsgruppe in Software Engineering und koordiniert die Einführungswochen (E-Woche) des Fachschaftsrats Informatik (FaRaFIN).
+
+## Aktuell
+
+- Softwareentwickler (Werkstudent, 20 Stunden pro Woche) bei der Falcos GmbH seit 06/2025: XÖV-ZUGFeRD-Parser zur Validierung von Rechnungen, Dokumentationsportale mit Docusaurus, Prozessautomatisierung mit LLMs, Erfassung der „Top 100“ Verwaltungsleistungen nach der EU-SDG-Verordnung.
+- Übungsleiter Software Engineering an der Fakultät für Informatik der OVGU seit 10/2026 (Gruppe mit 20 bis 30 Studierenden).
+- B.Sc. Wirtschaftsinformatik an der OVGU seit 10/2024, schneller als der Regelstudienplan (135 statt regulär 120 Leistungspunkte, Durchschnitt 1,6).
+- Gewählter Stellvertreter im Fachschaftsrat der Fakultät für Informatik seit 03/2025: Koordination der E-Wochen im Winter- und Sommersemester (150+ und 80+ Erstis, bis zu 20 Freiwillige), IT-Administration, internes Wiki.
+- SIDUM e.V., studentische Unternehmensberatung, Ressort Finanzen & Recht seit 04/2025.
+
+## Projekte
+
+- [Autohaus Kleinjena](https://autohaus-kleinjena.netlify.app/): Webseite für ein Autohaus mit Fahrzeugübersicht, Filter und Formular für Service-Anfragen, allein entwickelt.
+- [OSCAR Semesterplaner](https://github.com/emin-girimhanov/oscar-discord-bot): Discord-Bot für Modulwahl und Semesterplanung an der OVGU, Studienprojekt im Viererteam, Python, Apache 2.0. [Dokumentation](https://emin-girimhanov.github.io/oscar-discord-bot/)
+- [FIM Schulung](https://fim-schulung.de/): Lernportal für das Föderale Informationsmanagement, im Zweierteam überarbeitet.
+- [E-Woche-Portal](https://github.com/emin-girimhanov/e-week-mentor-website): Portal für Mentor:innen und Helfende der Einführungswoche.
+- Autonomer Mähroboter: Raspberry Pi, Python, 3D-Druck, Schulprojekt im Zweierteam.
+- Schulcampus-Modell 1:150: CAD und 3D-Druck des CJD Droyßig, Sonderpreis für Digitalisierung 2024.
+- Homelab: Proxmox-Server mit Nextcloud, Paperless-ngx, n8n, Stirling-PDF, Firefly III und SearXNG.
+
+## Auszeichnungen und Zertifikate
+
+- Online-Stipendium von e-fellows.net (seit 09/2025)
+- Sonderpreis für Digitalisierung / Modellierung / Digitaltechnik, CJD Droyßig (06/2024)
+- Certified ScrumMaster (Scrum Alliance, 2025), FIM-Methodenexperte (2025), FIM-Informationsmanager
+- Teilnahme an der Mentoring-Qualifizierung der OVGU (10/2026)
+
+## Themen
+
+Verwaltungsdigitalisierung, Föderales Informationsmanagement (FIM), OZG, XÖV, ZUGFeRD, digitale Souveränität, Open Source, Self-Hosting, Prozessautomatisierung mit n8n und LLMs.
+
+## Links
+
+- [Portfolio](https://emin-girimhanov.de/)
+- [GitHub](https://github.com/emin-girimhanov)
+- [LinkedIn](https://www.linkedin.com/in/emin-girimhanov/)
+- [Mastodon](https://machteburch.social/@emin)

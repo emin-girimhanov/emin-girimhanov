@@ -78,13 +78,71 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const langToggleBtn = document.getElementById('lang-toggle-btn');
+    // Seiten ohne Sprachumschalter (Impressum, Datenschutz) gibt es nur auf Deutsch
+    if (!langToggleBtn) currentLang = 'de';
+
+    // --- Hell / Dunkel ---
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    function currentTheme() {
+        const set = document.documentElement.getAttribute('data-theme');
+        if (set === 'light' || set === 'dark') return set;
+        return darkQuery.matches ? 'dark' : 'light';
+    }
+
+    function updateThemeButton() {
+        if (!themeBtn) return;
+        const dark = currentTheme() === 'dark';
+        // Der Knopf zeigt, wohin er schaltet
+        themeBtn.querySelector('.icon-moon').hidden = dark;
+        themeBtn.querySelector('.icon-sun').hidden = !dark;
+        const target = dark ? 'light' : 'dark';
+        themeBtn.setAttribute('aria-label', themeBtn.getAttribute(`data-${currentLang}-label-${target}`));
+    }
+
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            const next = currentTheme() === 'dark' ? 'light' : 'dark';
+            // Uebergaenge kurz abschalten, damit alle Farben sofort wechseln
+            const root = document.documentElement;
+            root.classList.add('theme-switching');
+            root.setAttribute('data-theme', next);
+            void root.offsetWidth;
+            setTimeout(() => root.classList.remove('theme-switching'), 50);
+            try { localStorage.setItem('site-theme', next); } catch (e) { /* kein Speicher */ }
+            updateThemeButton();
+        });
+        // Systemwechsel uebernehmen, solange niemand selbst gewaehlt hat
+        const onSystemChange = () => updateThemeButton();
+        if (darkQuery.addEventListener) darkQuery.addEventListener('change', onSystemChange);
+        else if (darkQuery.addListener) darkQuery.addListener(onSystemChange);
+    }
+
+    // Links in neuem Tab fuer Screenreader kennzeichnen
+    function markExternalLinks() {
+        const hint = currentLang === 'de' ? ' (öffnet in neuem Tab)' : ' (opens in new tab)';
+        document.querySelectorAll('a[target="_blank"]').forEach(a => {
+            let span = a.querySelector('.ext-hint');
+            if (!span) {
+                span = document.createElement('span');
+                span.className = 'sr-only ext-hint';
+                a.appendChild(span);
+            }
+            span.textContent = hint;
+        });
+    }
 
     function applyLanguage(lang) {
         currentLang = lang;
         try { localStorage.setItem('site-lang', lang); } catch (e) { /* kein Speicher */ }
         document.documentElement.lang = lang;
 
-        if (langToggleBtn) langToggleBtn.textContent = lang === 'de' ? 'EN' : 'DE';
+        if (langToggleBtn) {
+            langToggleBtn.textContent = lang === 'de' ? 'EN' : 'DE';
+            // Die Beschriftung steht in der Zielsprache
+            langToggleBtn.lang = lang === 'de' ? 'en' : 'de';
+        }
 
         document.querySelectorAll('[data-de][data-en]').forEach(el => {
             const text = el.getAttribute(`data-${lang}`);
@@ -95,13 +153,21 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('[data-de-label][data-en-label]').forEach(el => {
             el.setAttribute('aria-label', el.getAttribute(`data-${lang}-label`));
         });
+
+        markExternalLinks();
+        updateThemeButton();
     }
 
     if (langToggleBtn) {
         langToggleBtn.addEventListener('click', () => applyLanguage(currentLang === 'de' ? 'en' : 'de'));
     }
 
-    if (currentLang !== 'de') applyLanguage(currentLang);
+    if (currentLang !== 'de') {
+        applyLanguage(currentLang);
+    } else {
+        markExternalLinks();
+        updateThemeButton();
+    }
 
     // E-Mail-Adresse kopieren
     const copyEmailBtn = document.getElementById('copy-email-btn');
@@ -114,6 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const de = ok ? 'kopiert' : 'bitte von Hand kopieren';
                 const en = ok ? 'copied' : 'please copy manually';
                 copyEmailBtn.textContent = currentLang === 'de' ? de : en;
+                announce(copyEmailBtn.textContent);
                 setTimeout(() => {
                     copyEmailBtn.textContent = currentLang === 'de' ? 'kopieren' : 'copy';
                 }, 2000);
@@ -389,15 +456,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Bildansicht ---
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
-    if (lightbox && lightboxImg && typeof lightbox.showModal === 'function') {
-        document.querySelectorAll('[data-lightbox]').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const img = btn.querySelector('img');
-                lightboxImg.src = img.src;
-                lightboxImg.alt = img.alt;
-                lightbox.showModal();
-            });
+    const hasDialog = lightbox && lightboxImg && typeof lightbox.showModal === 'function';
+    document.querySelectorAll('[data-lightbox]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const img = btn.querySelector('img');
+            if (!hasDialog) {
+                // Aeltere Browser ohne <dialog>: Bild in neuem Tab
+                window.open(img.src, '_blank', 'noopener');
+                return;
+            }
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightbox.showModal();
         });
+    });
+    if (hasDialog) {
         // Klick neben das Bild schliesst
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) lightbox.close();
@@ -418,7 +491,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
             current = navSections.length - 1;
         }
-        navLinks.forEach((a, idx) => a.classList.toggle('active', idx === current));
+        navLinks.forEach((a, idx) => {
+            a.classList.toggle('active', idx === current);
+            if (idx === current) a.setAttribute('aria-current', 'location');
+            else a.removeAttribute('aria-current');
+        });
     }
     window.addEventListener('scroll', updateNav, { passive: true });
     updateNav();
