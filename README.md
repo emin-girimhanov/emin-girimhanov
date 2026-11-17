@@ -12,7 +12,7 @@ Ich bin in Sachsen-Anhalt aufgewachsen. Mich beschäftigen handfeste Probleme: E
 
 * **[OSCAR](https://github.com/emin-girimhanov/oscar-discord-bot)**: Discord-Bot für Modulwahl und Semesterplanung an der OVGU. Studienprojekt im Viererteam, Python, Apache 2.0. Zur [Dokumentation](https://emin-girimhanov.github.io/oscar-discord-bot/).
 * **[E-Woche-Portal](https://github.com/emin-girimhanov/e-week-mentor-website)**: Mentoren- und Helferportal für die Einführungswoche des Fachschaftsrats FIN.
-* **[Diese Webseite](https://github.com/emin-girimhanov/emin-girimhanov)**: Quelltext von [emin-girimhanov.de](https://emin-girimhanov.de/), ohne Framework gebaut.
+* **[Diese Webseite](https://github.com/emin-girimhanov/emin-girimhanov)**: Quelltext von [emin-girimhanov.de](https://emin-girimhanov.de/), ohne Framework gebaut. Mit drehbarem 3D-Modell des Schulcampus in reinem Canvas und einer Konsole zum Tippen.
 
 ## Projekte
 
@@ -21,7 +21,7 @@ Ich bin in Sachsen-Anhalt aufgewachsen. Mich beschäftigen handfeste Probleme: E
 | **Autohaus Kleinjena** | Webseite für ein Autohaus mit Fahrzeug-Übersicht, Filter und Formular für Service-Anfragen. Selbst entwickelt. | [autohaus-kleinjena.netlify.app](https://autohaus-kleinjena.netlify.app/) |
 | **OSCAR** | Discord-Bot zur Semesterplanung für Informatikstudierende. Selbst gewähltes Thema im Softwareprojekt, entwickelt im Viererteam. | [Code](https://github.com/emin-girimhanov/oscar-discord-bot), [Doku](https://emin-girimhanov.github.io/oscar-discord-bot/) |
 | **Autonomer Mähroboter** | Raspberry Pi, Python und 3D-Druck. Abschlussarbeit im Zweierteam. | |
-| **Schulcampus-Modell (1:150)** | CAD-Modell und 3D-Druck des Schulcampus Droyßig im Zweierteam. Sonderpreis für Digitalisierung 2024. | |
+| **Schulcampus-Modell (1:150)** | CAD-Modell und 3D-Druck des Schulcampus Droyßig im Zweierteam. Sonderpreis für Digitalisierung 2024. | [3D-Ansicht](https://emin-girimhanov.de/) |
 | **Proxmox-Homelab** | Eigener Server mit Nextcloud, Paperless-ngx, n8n und weiteren freien Diensten. | |
 | **FIM Schulung** | Lernportal für das Föderale Informationsmanagement. Im Zweierteam überarbeitet. | [fim-schulung.de](https://fim-schulung.de/) |
 | **Falcos GmbH** | Mein Arbeitgeber, nicht mein Projekt. Ich entwickle dort XÖV-ZUGFeRD-Parser, Docusaurus-Portale und Automatisierung mit LLMs. | [falcos.de](https://falcos.de) |
@@ -66,12 +66,17 @@ Website and portfolio: [emin-girimhanov.de](https://emin-girimhanov.de/)
 
 * **[OSCAR](https://github.com/emin-girimhanov/oscar-discord-bot)**: Discord bot that helps students at OVGU choose modules and plan their semesters. University project by a team of four, Python, Apache 2.0. See the [documentation](https://emin-girimhanov.github.io/oscar-discord-bot/).
 * **[Orientation week portal](https://github.com/emin-girimhanov/e-week-mentor-website)**: Portal for mentors and helpers of the orientation week run by the FIN student council.
-* **[This website](https://github.com/emin-girimhanov/emin-girimhanov)**: Source of [emin-girimhanov.de](https://emin-girimhanov.de/), built without a framework.
+* **[This website](https://github.com/emin-girimhanov/emin-girimhanov)**: Source of [emin-girimhanov.de](https://emin-girimhanov.de/), built without a framework. Includes a rotatable 3D model of the school campus in plain canvas and a console you can type into.
 
 ## Web projects
 
 * **[Autohaus Kleinjena](https://autohaus-kleinjena.netlify.app/)**: Website for a car dealership with vehicle overview, filters and a service request form. Built on my own.
 * **[FIM Schulung](https://fim-schulung.de/)**: Learning portal for Federal Information Management in the public sector. Reworked in a team of two.
+
+## Scholarships
+
+* [Foundation of German Business (sdw)](https://www.sdw.org/)
+* [e-fellows.net](https://www.e-fellows.net/) online scholarship (since 09/2025)
 
 </details>
 
