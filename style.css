@@ -16,6 +16,10 @@
     --efellows: #a84f00;
     --efellows-soft: rgb(254 124 9 / 0.6);
     --efellows-glow: rgb(254 124 9 / 0.4);
+    /* sdw-Gelb #ffca00: als Text auf hellem Grund zu blass, daher dort dunkler Ton gleicher Farbe */
+    --sdw: #8a6c00;
+    --sdw-soft: rgb(255 202 0 / 0.85);
+    --sdw-glow: rgb(255 202 0 / 0.45);
     color-scheme: light;
     --font: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
     --mono: 'Fira Code', ui-monospace, 'Cascadia Code', Consolas, monospace;
@@ -38,6 +42,9 @@
         --efellows: #fe7c09;
         --efellows-soft: rgb(254 124 9 / 0.55);
         --efellows-glow: rgb(254 124 9 / 0.65);
+        --sdw: #ffca00;
+        --sdw-soft: rgb(255 202 0 / 0.6);
+        --sdw-glow: rgb(255 202 0 / 0.55);
         color-scheme: dark;
     }
 }
@@ -58,6 +65,9 @@
     --efellows: #fe7c09;
     --efellows-soft: rgb(254 124 9 / 0.55);
     --efellows-glow: rgb(254 124 9 / 0.65);
+    --sdw: #ffca00;
+    --sdw-soft: rgb(255 202 0 / 0.6);
+    --sdw-glow: rgb(255 202 0 / 0.55);
     color-scheme: dark;
 }
 
@@ -148,7 +158,7 @@ p { margin: 0 0 1em; }
     text-shadow: 0 0 14px var(--brand-glow);
 }
 .falcos-link { --brand: var(--falcos); --brand-soft: var(--falcos-soft); --brand-glow: var(--falcos-glow); }
-.sdw-link { --brand: var(--accent); --brand-soft: color-mix(in srgb, var(--accent) 55%, transparent); --brand-glow: color-mix(in srgb, var(--accent) 35%, transparent); }
+.sdw-link { --brand: var(--sdw); --brand-soft: var(--sdw-soft); --brand-glow: var(--sdw-glow); }
 .ovgu-link { --brand: var(--ovgu); --brand-soft: var(--ovgu-soft); --brand-glow: var(--ovgu-glow); }
 .efellows-link { --brand: var(--efellows); --brand-soft: var(--efellows-soft); --brand-glow: var(--efellows-glow); white-space: nowrap; }
 

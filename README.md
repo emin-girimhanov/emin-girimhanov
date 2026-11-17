@@ -1,6 +1,6 @@
 # Hi, ich bin Emin Girimhanov
 
-Ich studiere Wirtschaftsinformatik an der Otto-von-Guericke-Universität Magdeburg. Als Werkstudent bei der Falcos GmbH entwickle ich Software für den Public Sector. An der Fakultät für Informatik leite ich eine Übung in Software Engineering & IT-Projektmanagement.
+Ich studiere Wirtschaftsinformatik an der Otto-von-Guericke-Universität Magdeburg. Als Werkstudent bei der Falcos GmbH bauen wir im Team an einer Verwaltung, die schnell und digital funktioniert. An der Fakultät für Informatik gebe ich weiter, was ich gelernt habe: als Übungsleiter in Software Engineering & IT-Projektmanagement und als Tutor in Algorithmen und Datenstrukturen. Außerdem arbeite ich als wissenschaftliche Hilfskraft in der AG WIF.
 
 Webseite und Portfolio: [emin-girimhanov.de](https://emin-girimhanov.de/)
 
@@ -58,7 +58,7 @@ Ich bin in Sachsen-Anhalt aufgewachsen. Mich beschäftigen handfeste Probleme: E
 
 # Hi, I am Emin Girimhanov
 
-I study Business Informatics at Otto von Guericke University Magdeburg. As a working student at Falcos GmbH I build software for the public sector. At the Faculty of Computer Science I lead an exercise group in Software Engineering & IT-Projektmanagement.
+I study Business Informatics at Otto von Guericke University Magdeburg. As a working student at Falcos GmbH my team and I build towards a public administration that is fast and digital. At the Faculty of Computer Science I pass on what I have learned: as a teaching assistant in Software Engineering & IT-Projektmanagement and as a tutor in Algorithms and Data Structures. I also work as a student research assistant in the AG WIF group.
 
 Website and portfolio: [emin-girimhanov.de](https://emin-girimhanov.de/)
 
