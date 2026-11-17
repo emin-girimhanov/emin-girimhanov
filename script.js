@@ -225,8 +225,8 @@ document.addEventListener('DOMContentLoaded', () => {
             en: 'Projects:\n • Autohaus Kleinjena: https://autohaus-kleinjena.netlify.app/\n • OSCAR semester planner: https://github.com/emin-girimhanov/oscar-discord-bot\n • FIM Schulung: https://fim-schulung.de/\n • Autonomous lawn mower (Raspberry Pi, Python, 3D printing)\n • School campus model 1:150 (digitalization award)\n • Orientation week portal: https://github.com/emin-girimhanov/e-week-mentor-website\n • Proxmox homelab: more than 20 self-hosted services'
         },
         skills: {
-            de: 'Programmierung: Java, Python, HTML/CSS/JavaScript, SQL, Git\nSelf-Hosting: Proxmox VE, Nextcloud, Immich, Paperless-ngx, Vaultwarden, Forgejo, n8n, Actual Budget, Pocket ID, Tailscale, AdGuard Home, Caddy\nVerwaltung: FIM-Methodenexperte (2025), FIM-Informationsmanager, XÖV-Modellierung\nSonstiges: Certified ScrumMaster (2025), CAD & 3D-Druck (FDM)\nSprachen: Deutsch (Muttersprache), Englisch (kommunikationssicher)',
-            en: 'Programming: Java, Python, HTML/CSS/JavaScript, SQL, Git\nSelf-hosting: Proxmox VE, Nextcloud, Immich, Paperless-ngx, Vaultwarden, Forgejo, n8n, Actual Budget, Pocket ID, Tailscale, AdGuard Home, Caddy\nPublic sector: FIM method expert (2025), FIM information manager, XÖV modelling\nOther: Certified ScrumMaster (2025), CAD & 3D printing (FDM)\nLanguages: German (native), English (fluent)'
+            de: 'Programmierung: Java, Python, HTML/CSS/JavaScript, SQL, Git\nSelf-Hosting: Proxmox VE, Nextcloud, Immich, Paperless-ngx, Vaultwarden, Forgejo, n8n, Actual Budget, Pocket ID, Tailscale, AdGuard Home, Caddy, OmniRoute\nEigene Dienste: Hermes (KI-Agent), CVE-Wächter (Sicherheitslücken-Alarm)\nVerwaltung: FIM-Methodenexperte (2025), FIM-Informationsmanager, XÖV-Modellierung\nSonstiges: Certified ScrumMaster (2025), CAD & 3D-Druck (FDM)\nSprachen: Deutsch (Muttersprache), Englisch (kommunikationssicher)',
+            en: 'Programming: Java, Python, HTML/CSS/JavaScript, SQL, Git\nSelf-hosting: Proxmox VE, Nextcloud, Immich, Paperless-ngx, Vaultwarden, Forgejo, n8n, Actual Budget, Pocket ID, Tailscale, AdGuard Home, Caddy, OmniRoute\nOwn services: Hermes (AI agent), CVE-Wächter (vulnerability alerts)\nPublic sector: FIM method expert (2025), FIM information manager, XÖV modelling\nOther: Certified ScrumMaster (2025), CAD & 3D printing (FDM)\nLanguages: German (native), English (fluent)'
         },
         erfahrung: {
             de: 'seit 10/2026  Übungsleiter Software Engineering & IT-Projektmanagement, OVGU\nseit 06/2025  Werkstudent Softwareentwicklung, Falcos GmbH (XÖV, ZUGFeRD)\nseit 04/2025  SIDUM e.V., Ressort Finanzen & Recht\nseit 03/2025  Stellvertreter im Fachschaftsrat FIN\nseit 10/2024  B.Sc. Wirtschaftsinformatik, OVGU Magdeburg (schneller als der Regelstudienplan)\n     06/2024  Abitur, CJD Droyßig',
@@ -760,7 +760,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const radius = Math.hypot(model.halfX, model.halfZ);
             const aspect = w / h;
             const fov = 0.5;
-            const dist = (radius * 1.05) / Math.tan(fov / 2) / Math.min(1, aspect * 0.9);
+            const dist = (radius * 0.85) / Math.tan(fov / 2) / Math.min(1, aspect * 0.9);
             const mvp = mul(perspective(fov, aspect, dist * 0.2, dist * 4), view(dist, model.maxY * 0.25));
             const light = [0.35, 0.85, 0.4];
 

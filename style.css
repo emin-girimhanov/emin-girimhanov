@@ -315,10 +315,10 @@ body::before {
 /* Einstieg: Text links, 3D-Ansicht rechts. Bricht aus der Textbreite aus. */
 .hero {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-    gap: 40px;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: clamp(48px, 7vw, 104px);
     align-items: center;
-    margin: 56px 0 40px;
+    margin: 72px 0 56px;
     /* gleiche Breite wie der Inhalt der Kopfzeile */
     margin-inline: calc(50% - min(470px, 50vw - 20px));
 }
@@ -334,8 +334,8 @@ body::before {
 .intro .status { grid-area: status; margin-bottom: 16px; }
 .portrait-btn { grid-area: photo; display: block; border-radius: 50%; }
 .portrait {
-    width: 132px;
-    height: 132px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     object-fit: cover;
     transition: transform 0.2s ease;
@@ -344,7 +344,7 @@ body::before {
 
 h1 {
     grid-area: name;
-    font-size: clamp(2.6rem, 4.6vw, 3.6rem);
+    font-size: clamp(2.4rem, 3.9vw, 3.3rem);
     font-weight: 700;
     letter-spacing: -0.035em;
     line-height: 1.0;
@@ -357,6 +357,11 @@ h1 {
     .intro { column-gap: 16px; }
     .portrait { width: 88px; height: 88px; }
     h1 { font-size: clamp(2rem, 9vw, 2.6rem); }
+}
+
+@media (max-width: 1000px) {
+    .hero { grid-template-columns: 1fr; gap: 36px; margin-inline: 0; }
+    .viewport { max-width: 560px; }
 }
 
 /* CAD-Ansicht */
@@ -426,6 +431,7 @@ h1 {
 
 @media (max-width: 820px) {
     .hero { grid-template-columns: 1fr; gap: 28px; margin-inline: 0; }
+    .viewport { max-width: 560px; }
     .viewport-frame { aspect-ratio: 4 / 3; }
 }
 
@@ -575,6 +581,36 @@ main { counter-reset: sec; }
     border: 1px solid var(--line);
 }
 .ewoche-figure figcaption { color: var(--muted); font-size: 0.9rem; margin-top: 8px; }
+
+/* Einklappbarer Bereich (E-Woche) */
+.more { margin-top: 28px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.more > summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 0;
+    cursor: pointer;
+    font-weight: 600;
+    list-style: none;
+}
+.more > summary::-webkit-details-marker { display: none; }
+.more > summary::after {
+    content: "";
+    width: 9px;
+    height: 9px;
+    border-right: 1.5px solid var(--muted);
+    border-bottom: 1.5px solid var(--muted);
+    transform: translateY(-3px) rotate(45deg);
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+}
+.more[open] > summary::after { transform: translateY(2px) rotate(-135deg); }
+.more > summary:hover { color: var(--accent); }
+.more[open] { padding-bottom: 16px; }
+#ewoche .more h3:first-child { margin-top: 4px; }
+@media (prefers-reduced-motion: reduce) { .more > summary::after { transition: none; } }
+@media print { .more > *:not(summary) { display: block !important; } }
 
 /* Werdegang: Linie fuellt sich beim Scrollen, Punkte werden aktiv */
 .cv-wrap {

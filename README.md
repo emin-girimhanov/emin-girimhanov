@@ -4,6 +4,10 @@ Ich studiere Wirtschaftsinformatik an der Otto-von-Guericke-Universität Magdebu
 
 Webseite und Portfolio: [emin-girimhanov.de](https://emin-girimhanov.de/)
 
+## Perspektiven einbringen
+
+Als Arbeiter- und Migrationskind möchte ich Perspektiven einbringen, die noch zu selten vertreten sind, und den Osten sichtbarer machen. Dafür engagiere ich mich schon lange: im Studium an der OVGU, als Softwareentwickler bei der Falcos GmbH und im studentischen Engagement, ob beim Organisieren der Einführungswochen, in Bürosprechstunden oder im Eventmanagement. Die [Stiftung der Deutschen Wirtschaft (sdw)](https://www.sdw.org/) fördert mich dabei mit einem Stipendium.
+
 ## Warum Verwaltung
 
 Ich bin in Sachsen-Anhalt aufgewachsen. Mich beschäftigen handfeste Probleme: Ein Masterstudent wartet wochenlang auf sein Visum, und Behörden wälzen noch Aktenordner. Gute Software für Behörden entsteht, wenn man die echten Abläufe im Amt kennt.
@@ -22,7 +26,7 @@ Ich bin in Sachsen-Anhalt aufgewachsen. Mich beschäftigen handfeste Probleme: E
 | **OSCAR** | Discord-Bot zur Semesterplanung für Informatikstudierende. Selbst gewähltes Thema im Softwareprojekt, entwickelt im Viererteam. | [Code](https://github.com/emin-girimhanov/oscar-discord-bot), [Doku](https://emin-girimhanov.github.io/oscar-discord-bot/) |
 | **Autonomer Mähroboter** | Raspberry Pi, Python und 3D-Druck. Abschlussarbeit im Zweierteam. | |
 | **Schulcampus-Modell (1:150)** | CAD-Modell und 3D-Druck des Schulcampus Droyßig im Zweierteam. Sonderpreis für Digitalisierung 2024. | [3D-Ansicht](https://emin-girimhanov.de/) |
-| **Proxmox-Homelab** | Eigener Server mit über 20 Diensten: Nextcloud, Immich, Paperless-ngx, Vaultwarden, Forgejo, n8n, Actual Budget und mehr. Passkeys über Pocket ID, Zugang per Tailscale, nächtliche verschlüsselte Backups. | |
+| **Proxmox-Homelab** | Eigener Server mit über 20 Diensten: Nextcloud, Immich, Paperless-ngx, Vaultwarden, Forgejo, n8n, Actual Budget und mehr. Eigene Bausteine: Hermes (KI-Agent), CVE-Wächter (prüft Webseiten und Repos alle 30 Minuten auf neue Sicherheitslücken, ähnlich wie [Blackpanda](https://www.blackpanda.com/) im Großen) und OmniRoute als KI-Gateway. Passkeys über Pocket ID, Zugang per Tailscale, nächtliche verschlüsselte Backups. | |
 | **FIM Schulung** | Lernportal für das Föderale Informationsmanagement. Im Zweierteam überarbeitet. | [fim-schulung.de](https://fim-schulung.de/) |
 | **Falcos GmbH** | Mein Arbeitgeber, nicht mein Projekt. Ich entwickle dort XÖV-ZUGFeRD-Parser, Docusaurus-Portale und Automatisierung mit LLMs. | [falcos.de](https://falcos.de) |
 | **SIDUM e.V.** | Studentische Unternehmensberatung, Ressort Finanzen & Recht. Workshops mit d-fine und PwC. | [sidum.de](https://www.sidum.de/) |
