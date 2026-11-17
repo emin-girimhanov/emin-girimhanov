@@ -760,7 +760,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const radius = Math.hypot(model.halfX, model.halfZ);
             const aspect = w / h;
             const fov = 0.5;
-            const dist = (radius * 0.85) / Math.tan(fov / 2) / Math.min(1, aspect * 0.9);
+            const dist = (radius * 0.95) / Math.tan(fov / 2) / Math.min(1, aspect * 0.9);
             const mvp = mul(perspective(fov, aspect, dist * 0.2, dist * 4), view(dist, model.maxY * 0.25));
             const light = [0.35, 0.85, 0.4];
 
