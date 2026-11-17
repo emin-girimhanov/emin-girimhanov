@@ -12,7 +12,7 @@ Ich bin in Sachsen-Anhalt aufgewachsen. Mich beschäftigen handfeste Probleme: E
 
 * **[OSCAR](https://github.com/emin-girimhanov/oscar-discord-bot)**: Discord-Bot für Modulwahl und Semesterplanung an der OVGU. Studienprojekt im Viererteam, Python, Apache 2.0. Zur [Dokumentation](https://emin-girimhanov.github.io/oscar-discord-bot/).
 * **[E-Woche-Portal](https://github.com/emin-girimhanov/e-week-mentor-website)**: Mentoren- und Helferportal für die Einführungswoche des Fachschaftsrats FIN.
-* **[Diese Webseite](https://github.com/emin-girimhanov/emin-girimhanov)**: Quelltext von [emin-girimhanov.de](https://emin-girimhanov.de/), ohne Framework gebaut. Mit drehbarem 3D-Modell des Schulcampus in reinem Canvas und einer Konsole zum Tippen.
+* **[Diese Webseite](https://github.com/emin-girimhanov/emin-girimhanov)**: Quelltext von [emin-girimhanov.de](https://emin-girimhanov.de/), ohne Framework gebaut. Mit unserem echten CAD-Modell des Schulcampus Droyßig als drehbarer 3D-Ansicht (WebGL, ohne Bibliothek) und einer Konsole zum Tippen.
 
 ## Projekte
 
@@ -66,7 +66,7 @@ Website and portfolio: [emin-girimhanov.de](https://emin-girimhanov.de/)
 
 * **[OSCAR](https://github.com/emin-girimhanov/oscar-discord-bot)**: Discord bot that helps students at OVGU choose modules and plan their semesters. University project by a team of four, Python, Apache 2.0. See the [documentation](https://emin-girimhanov.github.io/oscar-discord-bot/).
 * **[Orientation week portal](https://github.com/emin-girimhanov/e-week-mentor-website)**: Portal for mentors and helpers of the orientation week run by the FIN student council.
-* **[This website](https://github.com/emin-girimhanov/emin-girimhanov)**: Source of [emin-girimhanov.de](https://emin-girimhanov.de/), built without a framework. Includes a rotatable 3D model of the school campus in plain canvas and a console you can type into.
+* **[This website](https://github.com/emin-girimhanov/emin-girimhanov)**: Source of [emin-girimhanov.de](https://emin-girimhanov.de/), built without a framework. Includes our actual CAD model of the Droyßig school campus as a rotatable 3D view (WebGL, no library) and a console you can type into.
 
 ## Web projects
 

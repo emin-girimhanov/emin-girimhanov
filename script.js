@@ -532,199 +532,320 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     window.addEventListener('scroll', updateNav, { passive: true });
     updateNav();
-    // --- 3D-Ansicht: Campus als Drahtgitter, ohne Bibliothek ---
-    // Baut sich beim Laden Schicht fuer Schicht auf wie im 3D-Drucker.
-    // Verdeckte Kanten werden per Maleralgorithmus ausgeblendet (Flaechen in Hintergrundfarbe).
+    // --- 3D-Ansicht: das echte Campus-Modell (FreeCAD/Blender, als STL exportiert, fuer das Web vereinfacht) ---
+    // Eigener kleiner WebGL2-Renderer ohne Bibliothek: Flaechen in Hintergrundfarbe, Kanten als Linien (CAD-Look).
+    // Beim Laden "druckt" es sich Schicht fuer Schicht auf. Ohne WebGL2 erscheint ein Foto des Modells.
     (function campusModel() {
         const canvas = document.getElementById('campus-canvas');
-        if (!canvas || !canvas.getContext) return;
-        const ctx = canvas.getContext('2d');
+        const overlay = document.getElementById('campus-overlay');
+        if (!canvas) return;
         const layerLabel = document.getElementById('vp-layer');
-
-        // Nach dem gedruckten Modell der CJD Christophorusschule Droyssig (Schlossanlage).
-        // Grundriss in Modelleinheiten (1 Einheit = 3 m), z waechst nach hinten.
-        // x0, z0, x1, z1, Traufhoehe, Dachhoehe, Dachform ('gable' = Satteldach, 'pyramid' = Zeltdach)
-        const plan = [
-            [-6.6, 0.0, 4.2, 2.8, 4.2, 1.3, 'gable'],    // Vorderfluegel, vier Geschosse
-            [-10.8, 0.4, -6.6, 2.8, 3.4, 1.1, 'gable'],  // Vorderfluegel links, niedriger
-            [-8.4, 2.8, -6.0, 8.6, 3.6, 1.2, 'gable'],   // Westfluegel
-            [0.8, 2.8, 3.2, 12.4, 4.0, 1.2, 'gable'],    // Ostfluegel, reicht weit nach hinten
-            [-0.9, 5.4, 0.8, 9.6, 2.8, 1.1, 'gable'],    // Kirchenschiff am Ostfluegel
-            [-1.6, 4.2, -0.2, 5.6, 5.6, 2.4, 'pyramid'], // Kirchturm im Hof
-            [-5.4, 9.4, -2.6, 12.2, 3.4, 1.8, 'pyramid'],// Turmbau hinten links
-            [3.2, 9.8, 7.6, 11.6, 1.8, 0.8, 'gable'],    // Verbindungsbau nach rechts hinten
-            [6.0, 11.0, 10.4, 14.4, 3.0, 1.4, 'gable'],  // Gebaeude hinten rechts
-            [7.2, -3.4, 10.4, 4.4, 1.0, 0, 'flat']       // flacher Block vorn rechts
-        ];
-        // Mitte des Grundrisses auf den Ursprung, hinten = -z
-        const buildings = plan.map(([x0, z0, x1, z1, e, r, t]) => [x0, -(z1 - 5.5), x1, -(z0 - 5.5), e, r, t]);
-        const maxH = Math.max(...buildings.map(b => b[4] + b[5]));
-
+        const gl = canvas.getContext('webgl2', { antialias: true, alpha: true, premultipliedAlpha: false });
         const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-        let yaw = Math.PI - 0.35, pitch = 0.6, yawVel = 0;
+
+        function fallback() {
+            const frame = canvas.parentElement;
+            frame.classList.add('is-fallback');
+            const img = document.createElement('img');
+            img.src = 'assets/img/schulcampus_3d.jpg';
+            img.alt = 'Foto des 3D-gedruckten Campus-Modells';
+            img.className = 'viewport-fallback';
+            frame.appendChild(img);
+        }
+        if (!gl) { fallback(); return; }
+
+        const vs = `#version 300 es
+            in vec3 aPos;
+            uniform mat4 uMvp;
+            uniform float uExtent;
+            out vec3 vPos;
+            void main() {
+                vec3 p = aPos * uExtent;
+                vPos = p;
+                gl_Position = uMvp * vec4(p, 1.0);
+            }`;
+        const fsFace = `#version 300 es
+            precision highp float;
+            in vec3 vPos;
+            uniform float uCut;
+            uniform vec3 uBg, uInk, uAccent, uLight;
+            out vec4 o;
+            void main() {
+                if (vPos.y > uCut) discard;
+                vec3 n = normalize(cross(dFdx(vPos), dFdy(vPos)));
+                float l = abs(dot(n, uLight));
+                vec3 c = mix(uBg, uInk, 0.03 + 0.10 * (1.0 - l));
+                if (uCut - vPos.y < 0.7) c = mix(c, uAccent, 0.55);
+                o = vec4(c, 1.0);
+            }`;
+        const fsLine = `#version 300 es
+            precision highp float;
+            in vec3 vPos;
+            uniform float uCut;
+            uniform vec4 uColor;
+            out vec4 o;
+            void main() {
+                if (vPos.y > uCut) discard;
+                o = uColor;
+            }`;
+
+        function program(vsrc, fsrc) {
+            const p = gl.createProgram();
+            [[gl.VERTEX_SHADER, vsrc], [gl.FRAGMENT_SHADER, fsrc]].forEach(([type, src]) => {
+                const s = gl.createShader(type);
+                gl.shaderSource(s, src);
+                gl.compileShader(s);
+                gl.attachShader(p, s);
+            });
+            gl.bindAttribLocation(p, 0, 'aPos');
+            gl.linkProgram(p);
+            if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p));
+            const u = {};
+            ['uMvp', 'uExtent', 'uCut', 'uBg', 'uInk', 'uAccent', 'uLight', 'uColor'].forEach(n => { u[n] = gl.getUniformLocation(p, n); });
+            return { p, u };
+        }
+
+        let progFace, progLine;
+        try {
+            progFace = program(vs, fsFace);
+            progLine = program(vs, fsLine);
+        } catch (e) { fallback(); return; }
+
+        let model = null;      // { vao, nFaces, nEdges, extent, maxY }
+        let helpers = null;    // Raster und Druckebene
+        let yaw = 0.45, pitch = 0.62, yawVel = 0;
         let progress = reduce.matches ? 1 : 0;
         let dragging = false, lastX = 0, lastY = 0, lastInteract = -1e9;
-        let w = 0, h = 0, dpr = 1, visible = true, raf = null, lastT = 0;
+        let visible = true, raf = null, lastT = 0, w = 0, h = 0, dpr = 1;
         let colors = {};
 
+        // CSS-Farbe -> [r, g, b] (0..1), egal ob Hex, rgb() oder Name
+        const probe = document.createElement('canvas').getContext('2d');
+        function rgb(css) {
+            probe.fillStyle = '#000';
+            probe.fillStyle = css;
+            const v = probe.fillStyle;
+            if (v[0] === '#') return [1, 3, 5].map(i => parseInt(v.slice(i, i + 2), 16) / 255);
+            return v.match(/[\d.]+/g).slice(0, 3).map(x => x / 255);
+        }
         function readColors() {
             const cs = getComputedStyle(document.documentElement);
+            const get = (name, def) => cs.getPropertyValue(name).trim() || def;
             colors = {
-                bg: cs.getPropertyValue('--bg').trim() || '#fbfaf7',
-                text: cs.getPropertyValue('--text').trim() || '#1d1d1b',
-                muted: cs.getPropertyValue('--muted').trim() || '#63615b',
-                accent: cs.getPropertyValue('--accent').trim() || '#1f5c99'
+                bg: rgb(get('--bg', '#fbfaf7')),
+                text: rgb(get('--text', '#1d1d1b')),
+                muted: rgb(get('--muted', '#63615b')),
+                accent: rgb(get('--accent', '#1f5c99')),
+                mutedCss: get('--muted', '#63615b'),
+                accentCss: get('--accent', '#1f5c99'),
+                mono: get('--mono', 'monospace')
             };
+        }
+
+        function buffer(target, data) {
+            const b = gl.createBuffer();
+            gl.bindBuffer(target, b);
+            gl.bufferData(target, data, gl.STATIC_DRAW);
+            return b;
+        }
+
+        function load() {
+            fetch('assets/model/campus.bin')
+                .then(r => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
+                .then(buf => {
+                    const head = new Uint32Array(buf, 4, 3);
+                    const nv = head[0], nf = head[1], ne = head[2];
+                    const inv = new Float32Array(buf, 16, 1)[0];
+                    let off = 20;
+                    const pos = new Int16Array(buf, off, nv * 3);
+                    off += nv * 6; off += (4 - (off % 4)) % 4;
+                    const faces = new Uint16Array(buf, off, nf * 3);
+                    off += nf * 6; off += (4 - (off % 4)) % 4;
+                    const edges = new Uint16Array(buf, off, ne * 2);
+
+                    let maxY = 0;
+                    for (let i = 1; i < pos.length; i += 3) maxY = Math.max(maxY, pos[i]);
+                    const extent = 32767 * inv;
+
+                    const vao = gl.createVertexArray();
+                    gl.bindVertexArray(vao);
+                    buffer(gl.ARRAY_BUFFER, pos);
+                    gl.enableVertexAttribArray(0);
+                    gl.vertexAttribPointer(0, 3, gl.SHORT, true, 0, 0);
+                    const faceBuf = buffer(gl.ELEMENT_ARRAY_BUFFER, faces);
+                    gl.bindVertexArray(null);
+                    const edgeBuf = buffer(gl.ELEMENT_ARRAY_BUFFER, edges);
+
+                    let maxX = 0, maxZ = 0;
+                    for (let i = 0; i < pos.length; i += 3) {
+                        maxX = Math.max(maxX, Math.abs(pos[i]));
+                        maxZ = Math.max(maxZ, Math.abs(pos[i + 2]));
+                    }
+                    model = { vao, faceBuf, edgeBuf, nFaces: nf * 3, nEdges: ne * 2, extent,
+                        maxY: maxY * inv, halfX: maxX * inv, halfZ: maxZ * inv };
+                    buildHelpers();
+                    canvas.parentElement.classList.add('is-ready');
+                    start();
+                })
+                .catch(fallback);
+        }
+
+        // Bodenraster (10er-Schritte) und Rahmen der Druckebene als Linien in Weltkoordinaten
+        function buildHelpers() {
+            const gx = Math.ceil(model.halfX / 10) * 10 + 10, gz = Math.ceil(model.halfZ / 10) * 10 + 10;
+            const grid = [];
+            for (let x = -gx; x <= gx; x += 10) grid.push(x, 0, -gz, x, 0, gz);
+            for (let z = -gz; z <= gz; z += 10) grid.push(-gx, 0, z, gx, 0, z);
+            const vao = gl.createVertexArray();
+            gl.bindVertexArray(vao);
+            buffer(gl.ARRAY_BUFFER, new Float32Array(grid));
+            gl.enableVertexAttribArray(0);
+            gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0);
+            const plane = gl.createVertexArray();
+            gl.bindVertexArray(plane);
+            const px = model.halfX + 4, pz = model.halfZ + 4;
+            buffer(gl.ARRAY_BUFFER, new Float32Array([-px, 0, -pz, px, 0, -pz, px, 0, pz, -px, 0, pz]));
+            gl.enableVertexAttribArray(0);
+            gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0);
+            gl.bindVertexArray(null);
+            helpers = { grid: vao, gridCount: grid.length / 3, plane };
+        }
+
+        // 4x4-Matrizen (Spaltenreihenfolge)
+        function perspective(fovy, aspect, near, far) {
+            const f = 1 / Math.tan(fovy / 2), nf = 1 / (near - far);
+            return [f / aspect, 0, 0, 0, 0, f, 0, 0, 0, 0, (far + near) * nf, -1, 0, 0, 2 * far * near * nf, 0];
+        }
+        function mul(a, b) {
+            const o = new Array(16);
+            for (let c = 0; c < 4; c++) for (let r = 0; r < 4; r++) {
+                let s = 0;
+                for (let k = 0; k < 4; k++) s += a[k * 4 + r] * b[c * 4 + k];
+                o[c * 4 + r] = s;
+            }
+            return o;
+        }
+        function view(dist, targetY) {
+            const cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+            // Rotation um Y (yaw), dann um X (pitch), dann Kamera zurueck
+            const ry = [cy, 0, -sy, 0, 0, 1, 0, 0, sy, 0, cy, 0, 0, 0, 0, 1];
+            const rx = [1, 0, 0, 0, 0, cp, sp, 0, 0, -sp, cp, 0, 0, 0, 0, 1];
+            const t = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, -targetY, 0, 1];
+            const back = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, -dist, 1];
+            return mul(back, mul(rx, mul(ry, t)));
         }
 
         function resize() {
             const r = canvas.getBoundingClientRect();
             dpr = Math.min(window.devicePixelRatio || 1, 2);
             w = r.width; h = r.height;
-            canvas.width = Math.round(w * dpr);
-            canvas.height = Math.round(h * dpr);
-            draw();
-        }
-
-        // Welt -> Bildschirm
-        function project(p) {
-            const cy = Math.cos(yaw), sy = Math.sin(yaw);
-            const cp = Math.cos(pitch), sp = Math.sin(pitch);
-            const x1 = p[0] * cy - p[2] * sy;
-            const z1 = p[0] * sy + p[2] * cy;
-            const y1 = p[1] - 1.2;
-            const y2 = y1 * cp + z1 * sp;
-            const z2 = z1 * cp - y1 * sp;
-            const dist = 40;
-            const f = Math.min(w, h * 1.25) * 1.45;
-            const zz = dist + z2;
-            return [w / 2 + (x1 * f) / zz, h * 0.56 - (y2 * f) / zz, zz];
-        }
-
-        function faceList(cut) {
-            const faces = [];
-            buildings.forEach(([x0, z0, x1, z1, eave, ridge, type]) => {
-                const top = Math.min(eave, cut);
-                if (top <= 0) return;
-                const quad = (pts, kind) => faces.push({ pts, kind });
-                quad([[x0, 0, z0], [x1, 0, z0], [x1, top, z0], [x0, top, z0]], 'wall');
-                quad([[x1, 0, z0], [x1, 0, z1], [x1, top, z1], [x1, top, z0]], 'wall');
-                quad([[x1, 0, z1], [x0, 0, z1], [x0, top, z1], [x1, top, z1]], 'wall');
-                quad([[x0, 0, z1], [x0, 0, z0], [x0, top, z0], [x0, top, z1]], 'wall');
-                const roofH = Math.max(0, Math.min(ridge, cut - eave));
-                if (ridge === 0 || roofH === 0) {
-                    quad([[x0, top, z0], [x1, top, z0], [x1, top, z1], [x0, top, z1]], top < eave ? 'cut' : 'roof');
-                    return;
-                }
-                const yr = eave + roofH;
-                if (type === 'pyramid') {
-                    const apex = [(x0 + x1) / 2, yr, (z0 + z1) / 2];
-                    quad([[x0, eave, z0], [x1, eave, z0], apex], 'roof');
-                    quad([[x1, eave, z0], [x1, eave, z1], apex], 'roof');
-                    quad([[x1, eave, z1], [x0, eave, z1], apex], 'roof');
-                    quad([[x0, eave, z1], [x0, eave, z0], apex], 'roof');
-                } else if (x1 - x0 >= z1 - z0) {
-                    const zm = (z0 + z1) / 2;
-                    quad([[x0, eave, z0], [x1, eave, z0], [x1, yr, zm], [x0, yr, zm]], 'roof');
-                    quad([[x1, eave, z1], [x0, eave, z1], [x0, yr, zm], [x1, yr, zm]], 'roof');
-                    quad([[x0, eave, z0], [x0, yr, zm], [x0, eave, z1]], 'wall');
-                    quad([[x1, eave, z1], [x1, yr, zm], [x1, eave, z0]], 'wall');
-                } else {
-                    const xm = (x0 + x1) / 2;
-                    quad([[x0, eave, z1], [x0, eave, z0], [xm, yr, z0], [xm, yr, z1]], 'roof');
-                    quad([[x1, eave, z0], [x1, eave, z1], [xm, yr, z1], [xm, yr, z0]], 'roof');
-                    quad([[x0, eave, z0], [x1, eave, z0], [xm, yr, z0]], 'wall');
-                    quad([[x1, eave, z1], [x0, eave, z1], [xm, yr, z1]], 'wall');
-                }
+            [canvas, overlay].forEach(c => {
+                if (!c) return;
+                c.width = Math.round(w * dpr);
+                c.height = Math.round(h * dpr);
             });
-            return faces;
-        }
-
-        function polyline(pts, close) {
-            ctx.beginPath();
-            pts.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1])));
-            if (close) ctx.closePath();
+            draw();
         }
 
         function draw() {
             if (!w || !h) return;
-            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-            ctx.clearRect(0, 0, w, h);
-            ctx.lineJoin = 'round';
+            gl.viewport(0, 0, canvas.width, canvas.height);
+            gl.clearColor(0, 0, 0, 0);
+            gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+            drawOverlay();
+            if (!model) return;
 
-            // Bodenraster
-            ctx.strokeStyle = colors.muted;
-            ctx.lineWidth = 1;
-            for (let i = -12; i <= 12; i += 1) {
-                ctx.globalAlpha = i % 5 === 0 ? 0.28 : 0.11;
-                polyline([project([i, 0, -12]), project([i, 0, 12])]); ctx.stroke();
-                polyline([project([-12, 0, i]), project([12, 0, i])]); ctx.stroke();
-            }
-            ctx.globalAlpha = 1;
-
-            // Druckfortschritt: Schnitthoehe
             const eased = 1 - Math.pow(1 - progress, 3);
-            const cut = eased * (maxH + 0.01);
-            const faces = faceList(cut).map(f => {
-                const pr = f.pts.map(project);
-                return { pr, kind: f.kind, z: pr.reduce((a, p) => a + p[2], 0) / pr.length };
-            });
-            faces.sort((a, b) => b.z - a.z);
+            const cut = progress >= 1 ? 1e9 : eased * (model.maxY + 0.01);
+            const radius = Math.hypot(model.halfX, model.halfZ);
+            const aspect = w / h;
+            const fov = 0.5;
+            const dist = (radius * 1.05) / Math.tan(fov / 2) / Math.min(1, aspect * 0.9);
+            const mvp = mul(perspective(fov, aspect, dist * 0.2, dist * 4), view(dist, model.maxY * 0.25));
+            const light = [0.35, 0.85, 0.4];
 
-            faces.forEach(f => {
-                polyline(f.pr, true);
-                ctx.fillStyle = colors.bg;
-                ctx.globalAlpha = 1;
-                ctx.fill();
-                if (f.kind === 'roof') {
-                    ctx.fillStyle = colors.text;
-                    ctx.globalAlpha = 0.05;
-                    ctx.fill();
-                }
-                if (f.kind === 'cut') {
-                    ctx.fillStyle = colors.accent;
-                    ctx.globalAlpha = 0.16;
-                    ctx.fill();
-                }
-                ctx.globalAlpha = f.kind === 'cut' ? 1 : 0.82;
-                ctx.strokeStyle = f.kind === 'cut' ? colors.accent : colors.text;
-                ctx.lineWidth = f.kind === 'cut' ? 1.4 : 1;
-                ctx.stroke();
-            });
-            ctx.globalAlpha = 1;
+            gl.enable(gl.DEPTH_TEST);
+            gl.enable(gl.BLEND);
+            gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
-            // Druckebene, solange gedruckt wird
+            // Raster
+            gl.useProgram(progLine.p);
+            gl.uniformMatrix4fv(progLine.u.uMvp, false, mvp);
+            gl.uniform1f(progLine.u.uExtent, 1);
+            gl.uniform1f(progLine.u.uCut, 1e9);
+            gl.uniform4f(progLine.u.uColor, ...colors.muted, 0.16);
+            gl.depthMask(false);
+            gl.bindVertexArray(helpers.grid);
+            gl.drawArrays(gl.LINES, 0, helpers.gridCount);
+            gl.depthMask(true);
+
+            // Flaechen, leicht nach hinten versetzt, damit die Kanten sauber obenauf liegen
+            gl.useProgram(progFace.p);
+            gl.uniformMatrix4fv(progFace.u.uMvp, false, mvp);
+            gl.uniform1f(progFace.u.uExtent, model.extent);
+            gl.uniform1f(progFace.u.uCut, cut);
+            gl.uniform3f(progFace.u.uBg, ...colors.bg);
+            gl.uniform3f(progFace.u.uInk, ...colors.text);
+            gl.uniform3f(progFace.u.uAccent, ...colors.accent);
+            gl.uniform3f(progFace.u.uLight, ...light.map(v => v / Math.hypot(...light)));
+            gl.enable(gl.POLYGON_OFFSET_FILL);
+            gl.polygonOffset(1.5, 2);
+            gl.bindVertexArray(model.vao);
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, model.faceBuf);
+            gl.drawElements(gl.TRIANGLES, model.nFaces, gl.UNSIGNED_SHORT, 0);
+            gl.disable(gl.POLYGON_OFFSET_FILL);
+
+            // Kanten
+            gl.useProgram(progLine.p);
+            gl.uniformMatrix4fv(progLine.u.uMvp, false, mvp);
+            gl.uniform1f(progLine.u.uExtent, model.extent);
+            gl.uniform1f(progLine.u.uCut, cut);
+            gl.uniform4f(progLine.u.uColor, ...colors.text, 0.78);
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, model.edgeBuf);
+            gl.drawElements(gl.LINES, model.nEdges, gl.UNSIGNED_SHORT, 0);
+            gl.bindVertexArray(null);
+            // Index-Puffer des VAO wiederherstellen
+            gl.bindVertexArray(model.vao);
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, model.faceBuf);
+            gl.bindVertexArray(null);
+
+            // Druckebene
             if (progress < 1) {
-                ctx.strokeStyle = colors.accent;
-                ctx.setLineDash([4, 4]);
-                ctx.globalAlpha = 0.7;
-                polyline([[-11.5, cut, -9.5], [11, cut, -9.5], [11, cut, 9.5], [-11.5, cut, 9.5]].map(project), true);
-                ctx.stroke();
-                ctx.setLineDash([]);
-                ctx.globalAlpha = 1;
+                gl.uniform1f(progLine.u.uExtent, 1);
+                gl.uniform1f(progLine.u.uCut, 1e9);
+                gl.uniformMatrix4fv(progLine.u.uMvp, false, mul(mvp, [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, cut, 0, 1]));
+                gl.uniform4f(progLine.u.uColor, ...colors.accent, 0.8);
+                gl.bindVertexArray(helpers.plane);
+                gl.drawArrays(gl.LINE_LOOP, 0, 4);
+                gl.bindVertexArray(null);
             }
-
-            // Achsenkreuz fest unten links, dreht nur mit (ohne Perspektive)
-            const cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
-            const ox = 34, oy = h - 34, len = 18;
-            ctx.font = '10px ' + (getComputedStyle(document.body).getPropertyValue('--mono') || 'monospace');
-            [[[1, 0, 0], 'x'], [[0, 1, 0], 'y'], [[0, 0, -1], 'z']].forEach(([d, name]) => {
-                const x1 = d[0] * cy - d[2] * sy;
-                const z1 = d[0] * sy + d[2] * cy;
-                const y2 = d[1] * cp + z1 * sp;
-                const ex = ox + x1 * len, ey = oy - y2 * len;
-                ctx.strokeStyle = name === 'y' ? colors.accent : colors.muted;
-                ctx.fillStyle = ctx.strokeStyle;
-                ctx.lineWidth = 1.2;
-                polyline([[ox, oy], [ex, ey]]); ctx.stroke();
-                ctx.fillText(name, ex + (x1 >= 0 ? 3 : -9), ey - 3);
-            });
 
             if (layerLabel) {
-                // Massstab 1:150, Weltmass in Metern umgerechnet auf mm am Modell (Einheit = 3 m)
-                const mm = (cut * 3000) / 150;
-                layerLabel.textContent = 'Z ' + Math.min(mm, (maxH * 3000) / 150).toFixed(1) + ' mm';
+                layerLabel.textContent = progress < 1
+                    ? (currentLang === 'de' ? 'DRUCK ' : 'PRINT ') + String(Math.round(eased * 100)).padStart(3, ' ') + ' %'
+                    : 'STL · ' + Math.round(model.nFaces / 3 / 1000) + 'K ' + (currentLang === 'de' ? 'DREIECKE' : 'TRIANGLES');
             }
+        }
+
+        // Achsenkreuz unten links (2D-Ebene ueber dem WebGL-Bild)
+        function drawOverlay() {
+            if (!overlay) return;
+            const ctx = overlay.getContext('2d');
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            ctx.clearRect(0, 0, w, h);
+            const cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+            const ox = 34, oy = h - 34, len = 18;
+            ctx.font = '10px ' + colors.mono;
+            [[[1, 0, 0], 'x'], [[0, 1, 0], 'y'], [[0, 0, -1], 'z']].forEach(([d, name]) => {
+                const x1 = d[0] * cy + d[2] * sy;
+                const z1 = -d[0] * sy + d[2] * cy;
+                const y2 = d[1] * cp - z1 * sp;
+                const ex = ox + x1 * len, ey = oy - y2 * len;
+                ctx.strokeStyle = ctx.fillStyle = name === 'y' ? colors.accentCss : colors.mutedCss;
+                ctx.lineWidth = 1.2;
+                ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(ex, ey); ctx.stroke();
+                ctx.fillText(name, ex + (x1 >= 0 ? 3 : -9), ey - 3);
+            });
         }
 
         function frame(t) {
@@ -732,20 +853,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const dt = Math.min(0.05, (t - (lastT || t)) / 1000);
             lastT = t;
             let animating = false;
-            if (progress < 1) {
-                progress = Math.min(1, progress + dt / 3.2);
+            if (model && progress < 1) {
+                progress = Math.min(1, progress + dt / 3.6);
                 animating = true;
             }
             if (!dragging) {
                 const idle = t - lastInteract > 2500;
                 if (Math.abs(yawVel) > 0.0005) { yaw += yawVel; yawVel *= 0.94; animating = true; }
-                else if (!reduce.matches && idle) { yaw += dt * 0.12; animating = true; }
+                else if (!reduce.matches && idle) { yaw += dt * 0.1; animating = true; }
                 else if (!idle) animating = true;
             }
             draw();
             if (animating && visible && !document.hidden) raf = requestAnimationFrame(frame);
         }
-
         function start() {
             if (!raf && visible && !document.hidden) { lastT = 0; raf = requestAnimationFrame(frame); }
         }
@@ -760,7 +880,7 @@ document.addEventListener('DOMContentLoaded', () => {
             lastX = e.clientX; lastY = e.clientY;
             yaw += dx * 0.008;
             yawVel = dx * 0.008;
-            if (e.pointerType === 'mouse') pitch = Math.max(0.12, Math.min(1.25, pitch + dy * 0.006));
+            if (e.pointerType === 'mouse') pitch = Math.max(0.1, Math.min(1.35, pitch + dy * 0.006));
             lastInteract = performance.now();
             draw();
         });
@@ -772,7 +892,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!step) return;
             e.preventDefault();
             yaw += step[0];
-            pitch = Math.max(0.12, Math.min(1.25, pitch + step[1]));
+            pitch = Math.max(0.1, Math.min(1.35, pitch + step[1]));
             lastInteract = performance.now();
             draw();
         });
@@ -786,11 +906,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('visibilitychange', start);
         if ('ResizeObserver' in window) new ResizeObserver(resize).observe(canvas);
         else window.addEventListener('resize', resize);
-
-        // Farben bei Hell/Dunkel neu lesen
         new MutationObserver(() => { readColors(); draw(); })
-            .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-        darkQuery.addEventListener && darkQuery.addEventListener('change', () => { readColors(); draw(); });
+            .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'lang'] });
+        if (darkQuery.addEventListener) darkQuery.addEventListener('change', () => { readColors(); draw(); });
 
         reprintCampus = () => {
             progress = reduce.matches ? 1 : 0;
@@ -800,7 +918,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         readColors();
         resize();
-        start();
+        load();
     })();
 
     // --- Tiefe: Projektbilder kippen, Konsole richtet sich auf, E-Woche-Bild mit Parallaxe ---
