@@ -271,13 +271,27 @@
     <main id="main-content" class="wrap">
 
         <!-- Intro -->
-        <section class="intro" id="top" aria-labelledby="intro-title">
-            <img src="assets/img/emin-girimhanov.jpg" alt="Porträtfoto von Emin Girimhanov" class="portrait" width="112" height="112">
-            <div>
+        <section class="hero" id="top" aria-labelledby="intro-title">
+            <div class="intro">
+                <img src="assets/img/emin-girimhanov.jpg" alt="Porträtfoto von Emin Girimhanov" class="portrait" width="112" height="112">
                 <p class="status"><span class="status-dot" aria-hidden="true"></span><span data-de="Aktuell bei Falcos und an der OVGU" data-en="Currently at Falcos and OVGU">Aktuell bei Falcos und an der OVGU</span></p>
-                <h1 id="intro-title">Emin Girimhanov</h1>
+                <h1 id="intro-title">Emin<br>Girimhanov</h1>
                 <p class="role" data-de="Softwareentwickler und Student der Wirtschaftsinformatik in Magdeburg" data-en="Software developer and business informatics student in Magdeburg">Softwareentwickler und Student der Wirtschaftsinformatik in Magdeburg</p>
             </div>
+
+            <!-- 3D-Ansicht: Drahtgitter, angelehnt an das gedruckte Campus-Modell. Ohne Bibliothek, reines Canvas. -->
+            <figure class="viewport" aria-labelledby="viewport-caption">
+                <div class="viewport-frame">
+                    <span class="vp-corner vp-tl" aria-hidden="true"></span><span class="vp-corner vp-tr" aria-hidden="true"></span><span class="vp-corner vp-bl" aria-hidden="true"></span><span class="vp-corner vp-br" aria-hidden="true"></span>
+                    <span class="vp-label vp-label-top" aria-hidden="true">PERSPEKTIVE · 1:150</span>
+                    <span class="vp-label vp-label-layer" id="vp-layer" aria-hidden="true">Z 0.0 mm</span>
+                    <canvas id="campus-canvas" tabindex="0" role="img"
+                        aria-label="Drehbares 3D-Drahtgitter eines Schulcampus. Mit Maus oder Pfeiltasten drehen."
+                        data-de-label="Drehbares 3D-Drahtgitter eines Schulcampus. Mit Maus oder Pfeiltasten drehen."
+                        data-en-label="Rotatable 3D wireframe of a school campus. Drag or use the arrow keys to rotate."></canvas>
+                </div>
+                <figcaption id="viewport-caption" data-de="Campus-Modell, vereinfacht. Ziehen zum Drehen. <a href=&quot;#campus&quot;>Zum Projekt</a>" data-en="Campus model, simplified. Drag to rotate. <a href=&quot;#campus&quot;>See the project</a>">Campus-Modell, vereinfacht. Ziehen zum Drehen. <a href="#campus">Zum Projekt</a></figcaption>
+            </figure>
         </section>
 
         <p class="lead" data-de="Ich studiere Wirtschaftsinformatik an der <a href=&quot;https://www.ovgu.de/&quot; class=&quot;ovgu-link&quot;>OVGU Magdeburg</a> und arbeite als Werkstudent bei der <a href=&quot;https://falcos.de&quot; class=&quot;falcos-link&quot;>Falcos GmbH</a>. Dort schreibe ich Software für Behörden, zum Beispiel Parser für Rechnungen nach den Standards XÖV und ZUGFeRD. An der Fakultät für Informatik leite ich eine Übung in Software Engineering." data-en="I study business informatics at <a href=&quot;https://www.ovgu.de/&quot; class=&quot;ovgu-link&quot;>OVGU Magdeburg</a> and work as a working student at <a href=&quot;https://falcos.de&quot; class=&quot;falcos-link&quot;>Falcos GmbH</a>. There I write software for public authorities, for example parsers for invoices in the XÖV and ZUGFeRD standards. At the Faculty of Computer Science I lead an exercise group in Software Engineering.">
@@ -302,6 +316,7 @@
             <h2 id="konsole-title" data-de="Konsole" data-en="Console">Konsole</h2>
             <p class="meta" data-de="Für alle, die lieber tippen als scrollen." data-en="For everyone who would rather type than scroll.">Für alle, die lieber tippen als scrollen.</p>
 
+            <div class="terminal-stage">
             <div class="terminal">
                 <div class="terminal-bar" aria-hidden="true"><span></span><span></span><span></span><em>emin@ovgu: ~</em></div>
                 <div class="terminal-body" id="terminal-output" role="log" aria-live="off" tabindex="0" aria-label="Terminal-Ausgabe" data-de-label="Terminal-Ausgabe" data-en-label="Terminal output">
@@ -312,6 +327,7 @@
                     <label for="terminal-input" class="t-prompt">emin@ovgu:~$</label>
                     <input type="text" id="terminal-input" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="help" aria-label="Befehl eingeben">
                 </div>
+            </div>
             </div>
             <div class="terminal-presets">
                 <button type="button" class="preset-btn" data-cmd="whoami">whoami</button>
@@ -375,7 +391,7 @@
                 </div>
             </article>
 
-            <article class="project">
+            <article class="project" id="campus">
                 <button type="button" class="img-btn" data-lightbox aria-label="Bild vergrößern: 3D-gedrucktes Modell des Schulcampus Droyßig" data-de-label="Bild vergrößern: 3D-gedrucktes Modell des Schulcampus Droyßig" data-en-label="Enlarge image: 3D-gedrucktes Modell des Schulcampus Droyßig"><img src="assets/img/schulcampus_3d.jpg" alt="3D-gedrucktes Modell des Schulcampus Droyßig" class="project-img" width="800" height="436" loading="lazy"></button>
                 <div>
                     <h3 data-de="Schulcampus-Modell 1:150" data-en="School campus model 1:150">Schulcampus-Modell 1:150</h3>

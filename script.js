@@ -374,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Einblenden beim Scrollen ---
     if ('IntersectionObserver' in window && !reduceMotion.matches) {
         document.documentElement.classList.add('js-reveal');
-        const revealTargets = document.querySelectorAll('.project, .cv li, .facts, #ueber-mich p, .terminal, .ewoche-figure');
+        const revealTargets = document.querySelectorAll('.project, .cv li, .facts, #ueber-mich p, .terminal-stage, .ewoche-figure');
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -499,4 +499,305 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     window.addEventListener('scroll', updateNav, { passive: true });
     updateNav();
+    // --- 3D-Ansicht: Campus als Drahtgitter, ohne Bibliothek ---
+    // Baut sich beim Laden Schicht fuer Schicht auf wie im 3D-Drucker.
+    // Verdeckte Kanten werden per Maleralgorithmus ausgeblendet (Flaechen in Hintergrundfarbe).
+    (function campusModel() {
+        const canvas = document.getElementById('campus-canvas');
+        if (!canvas || !canvas.getContext) return;
+        const ctx = canvas.getContext('2d');
+        const layerLabel = document.getElementById('vp-layer');
+
+        // Gebaeude: x0, z0, x1, z1, Traufhoehe, Firsthoehe ueber Traufe (0 = Flachdach)
+        const buildings = [
+            [-7.5, -5.0, 2.5, -2.2, 3.2, 1.4],  // Hauptgebaeude
+            [0.8, -1.4, 3.8, 4.6, 3.0, 1.3],    // Fluegel
+            [-7.5, 0.6, -2.0, 4.8, 2.3, 0],     // Sporthalle
+            [4.8, -4.6, 7.2, -1.2, 2.4, 2.2],   // Kapelle
+            [-1.6, -1.2, -0.4, 0.0, 5.2, 0],    // Turm
+            [4.8, 1.6, 7.2, 4.6, 1.6, 0]        // Nebengebaeude
+        ];
+        const maxH = Math.max(...buildings.map(b => b[4] + b[5]));
+
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let yaw = -0.65, pitch = 0.52, yawVel = 0;
+        let progress = reduce.matches ? 1 : 0;
+        let dragging = false, lastX = 0, lastY = 0, lastInteract = -1e9;
+        let w = 0, h = 0, dpr = 1, visible = true, raf = null, lastT = 0;
+        let colors = {};
+
+        function readColors() {
+            const cs = getComputedStyle(document.documentElement);
+            colors = {
+                bg: cs.getPropertyValue('--bg').trim() || '#fbfaf7',
+                text: cs.getPropertyValue('--text').trim() || '#1d1d1b',
+                muted: cs.getPropertyValue('--muted').trim() || '#63615b',
+                accent: cs.getPropertyValue('--accent').trim() || '#1f5c99'
+            };
+        }
+
+        function resize() {
+            const r = canvas.getBoundingClientRect();
+            dpr = Math.min(window.devicePixelRatio || 1, 2);
+            w = r.width; h = r.height;
+            canvas.width = Math.round(w * dpr);
+            canvas.height = Math.round(h * dpr);
+            draw();
+        }
+
+        // Welt -> Bildschirm
+        function project(p) {
+            const cy = Math.cos(yaw), sy = Math.sin(yaw);
+            const cp = Math.cos(pitch), sp = Math.sin(pitch);
+            const x1 = p[0] * cy - p[2] * sy;
+            const z1 = p[0] * sy + p[2] * cy;
+            const y1 = p[1] - 1.2;
+            const y2 = y1 * cp + z1 * sp;
+            const z2 = z1 * cp - y1 * sp;
+            const dist = 30;
+            const f = Math.min(w, h * 1.25) * 1.4;
+            const zz = dist + z2;
+            return [w / 2 + (x1 * f) / zz, h * 0.56 - (y2 * f) / zz, zz];
+        }
+
+        function faceList(cut) {
+            const faces = [];
+            buildings.forEach(([x0, z0, x1, z1, eave, ridge]) => {
+                const top = Math.min(eave, cut);
+                if (top <= 0) return;
+                const quad = (pts, kind) => faces.push({ pts, kind });
+                quad([[x0, 0, z0], [x1, 0, z0], [x1, top, z0], [x0, top, z0]], 'wall');
+                quad([[x1, 0, z0], [x1, 0, z1], [x1, top, z1], [x1, top, z0]], 'wall');
+                quad([[x1, 0, z1], [x0, 0, z1], [x0, top, z1], [x1, top, z1]], 'wall');
+                quad([[x0, 0, z1], [x0, 0, z0], [x0, top, z0], [x0, top, z1]], 'wall');
+                const roofH = Math.max(0, Math.min(ridge, cut - eave));
+                if (ridge === 0 || roofH === 0) {
+                    quad([[x0, top, z0], [x1, top, z0], [x1, top, z1], [x0, top, z1]], top < eave ? 'cut' : 'roof');
+                    return;
+                }
+                const yr = eave + roofH;
+                if (x1 - x0 >= z1 - z0) {
+                    const zm = (z0 + z1) / 2;
+                    quad([[x0, eave, z0], [x1, eave, z0], [x1, yr, zm], [x0, yr, zm]], 'roof');
+                    quad([[x1, eave, z1], [x0, eave, z1], [x0, yr, zm], [x1, yr, zm]], 'roof');
+                    quad([[x0, eave, z0], [x0, yr, zm], [x0, eave, z1]], 'wall');
+                    quad([[x1, eave, z1], [x1, yr, zm], [x1, eave, z0]], 'wall');
+                } else {
+                    const xm = (x0 + x1) / 2;
+                    quad([[x0, eave, z1], [x0, eave, z0], [xm, yr, z0], [xm, yr, z1]], 'roof');
+                    quad([[x1, eave, z0], [x1, eave, z1], [xm, yr, z1], [xm, yr, z0]], 'roof');
+                    quad([[x0, eave, z0], [x1, eave, z0], [xm, yr, z0]], 'wall');
+                    quad([[x1, eave, z1], [x0, eave, z1], [xm, yr, z1]], 'wall');
+                }
+            });
+            return faces;
+        }
+
+        function polyline(pts, close) {
+            ctx.beginPath();
+            pts.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1])));
+            if (close) ctx.closePath();
+        }
+
+        function draw() {
+            if (!w || !h) return;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            ctx.clearRect(0, 0, w, h);
+            ctx.lineJoin = 'round';
+
+            // Bodenraster
+            ctx.strokeStyle = colors.muted;
+            ctx.lineWidth = 1;
+            for (let i = -10; i <= 10; i += 1) {
+                ctx.globalAlpha = i % 5 === 0 ? 0.28 : 0.11;
+                polyline([project([i, 0, -10]), project([i, 0, 10])]); ctx.stroke();
+                polyline([project([-10, 0, i]), project([10, 0, i])]); ctx.stroke();
+            }
+            ctx.globalAlpha = 1;
+
+            // Druckfortschritt: Schnitthoehe
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const cut = eased * (maxH + 0.01);
+            const faces = faceList(cut).map(f => {
+                const pr = f.pts.map(project);
+                return { pr, kind: f.kind, z: pr.reduce((a, p) => a + p[2], 0) / pr.length };
+            });
+            faces.sort((a, b) => b.z - a.z);
+
+            faces.forEach(f => {
+                polyline(f.pr, true);
+                ctx.fillStyle = colors.bg;
+                ctx.globalAlpha = 1;
+                ctx.fill();
+                if (f.kind === 'roof') {
+                    ctx.fillStyle = colors.text;
+                    ctx.globalAlpha = 0.05;
+                    ctx.fill();
+                }
+                if (f.kind === 'cut') {
+                    ctx.fillStyle = colors.accent;
+                    ctx.globalAlpha = 0.16;
+                    ctx.fill();
+                }
+                ctx.globalAlpha = f.kind === 'cut' ? 1 : 0.82;
+                ctx.strokeStyle = f.kind === 'cut' ? colors.accent : colors.text;
+                ctx.lineWidth = f.kind === 'cut' ? 1.4 : 1;
+                ctx.stroke();
+            });
+            ctx.globalAlpha = 1;
+
+            // Druckebene, solange gedruckt wird
+            if (progress < 1) {
+                ctx.strokeStyle = colors.accent;
+                ctx.setLineDash([4, 4]);
+                ctx.globalAlpha = 0.7;
+                polyline([[-9, cut, -7], [9, cut, -7], [9, cut, 7], [-9, cut, 7]].map(project), true);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.globalAlpha = 1;
+            }
+
+            // Achsenkreuz fest unten links, dreht nur mit (ohne Perspektive)
+            const cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+            const ox = 34, oy = h - 34, len = 18;
+            ctx.font = '10px ' + (getComputedStyle(document.body).getPropertyValue('--mono') || 'monospace');
+            [[[1, 0, 0], 'x'], [[0, 1, 0], 'y'], [[0, 0, -1], 'z']].forEach(([d, name]) => {
+                const x1 = d[0] * cy - d[2] * sy;
+                const z1 = d[0] * sy + d[2] * cy;
+                const y2 = d[1] * cp + z1 * sp;
+                const ex = ox + x1 * len, ey = oy - y2 * len;
+                ctx.strokeStyle = name === 'y' ? colors.accent : colors.muted;
+                ctx.fillStyle = ctx.strokeStyle;
+                ctx.lineWidth = 1.2;
+                polyline([[ox, oy], [ex, ey]]); ctx.stroke();
+                ctx.fillText(name, ex + (x1 >= 0 ? 3 : -9), ey - 3);
+            });
+
+            if (layerLabel) {
+                // Massstab 1:150, Weltmass in Metern umgerechnet auf mm am Modell (Einheit = 3 m)
+                const mm = (cut * 3000) / 150;
+                layerLabel.textContent = 'Z ' + Math.min(mm, (maxH * 3000) / 150).toFixed(1) + ' mm';
+            }
+        }
+
+        function frame(t) {
+            raf = null;
+            const dt = Math.min(0.05, (t - (lastT || t)) / 1000);
+            lastT = t;
+            let animating = false;
+            if (progress < 1) {
+                progress = Math.min(1, progress + dt / 3.2);
+                animating = true;
+            }
+            if (!dragging) {
+                const idle = t - lastInteract > 2500;
+                if (Math.abs(yawVel) > 0.0005) { yaw += yawVel; yawVel *= 0.94; animating = true; }
+                else if (!reduce.matches && idle) { yaw += dt * 0.12; animating = true; }
+                else if (!idle) animating = true;
+            }
+            draw();
+            if (animating && visible && !document.hidden) raf = requestAnimationFrame(frame);
+        }
+
+        function start() {
+            if (!raf && visible && !document.hidden) { lastT = 0; raf = requestAnimationFrame(frame); }
+        }
+
+        canvas.addEventListener('pointerdown', e => {
+            dragging = true; lastX = e.clientX; lastY = e.clientY; yawVel = 0;
+            canvas.setPointerCapture(e.pointerId);
+        });
+        canvas.addEventListener('pointermove', e => {
+            if (!dragging) return;
+            const dx = e.clientX - lastX, dy = e.clientY - lastY;
+            lastX = e.clientX; lastY = e.clientY;
+            yaw += dx * 0.008;
+            yawVel = dx * 0.008;
+            if (e.pointerType === 'mouse') pitch = Math.max(0.12, Math.min(1.25, pitch + dy * 0.006));
+            lastInteract = performance.now();
+            draw();
+        });
+        const endDrag = () => { if (dragging) { dragging = false; lastInteract = performance.now(); start(); } };
+        canvas.addEventListener('pointerup', endDrag);
+        canvas.addEventListener('pointercancel', endDrag);
+        canvas.addEventListener('keydown', e => {
+            const step = { ArrowLeft: [-0.15, 0], ArrowRight: [0.15, 0], ArrowUp: [0, -0.08], ArrowDown: [0, 0.08] }[e.key];
+            if (!step) return;
+            e.preventDefault();
+            yaw += step[0];
+            pitch = Math.max(0.12, Math.min(1.25, pitch + step[1]));
+            lastInteract = performance.now();
+            draw();
+        });
+
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(entries => {
+                visible = entries[0].isIntersecting;
+                if (visible) start();
+            }).observe(canvas);
+        }
+        document.addEventListener('visibilitychange', start);
+        if ('ResizeObserver' in window) new ResizeObserver(resize).observe(canvas);
+        else window.addEventListener('resize', resize);
+
+        // Farben bei Hell/Dunkel neu lesen
+        new MutationObserver(() => { readColors(); draw(); })
+            .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        darkQuery.addEventListener && darkQuery.addEventListener('change', () => { readColors(); draw(); });
+
+        readColors();
+        resize();
+        start();
+    })();
+
+    // --- Tiefe: Projektbilder kippen, Konsole richtet sich auf, E-Woche-Bild mit Parallaxe ---
+    if (!reduceMotion.matches) {
+        if (window.matchMedia('(hover: hover)').matches) {
+            document.querySelectorAll('.project').forEach(project => {
+                const img = project.querySelector('.project-img');
+                const btn = project.querySelector('.img-btn');
+                if (!img || !btn) return;
+                btn.addEventListener('pointermove', e => {
+                    const r = btn.getBoundingClientRect();
+                    const nx = (e.clientX - r.left) / r.width - 0.5;
+                    const ny = (e.clientY - r.top) / r.height - 0.5;
+                    project.classList.add('is-tilting');
+                    img.style.setProperty('--ry', (nx * 10).toFixed(2) + 'deg');
+                    img.style.setProperty('--rx', (-ny * 8).toFixed(2) + 'deg');
+                    img.style.setProperty('--sx', (nx * 16).toFixed(1));
+                    img.style.setProperty('--sy', (ny * 10).toFixed(1));
+                });
+                btn.addEventListener('pointerleave', () => {
+                    project.classList.remove('is-tilting');
+                    ['--rx', '--ry', '--sx', '--sy'].forEach(v => img.style.removeProperty(v));
+                });
+            });
+        }
+
+        const terminal = document.querySelector('.terminal');
+        const ewocheImg = document.querySelector('.ewoche-img');
+        function updateDepth() {
+            const vh = window.innerHeight;
+            if (terminal) {
+                const r = terminal.getBoundingClientRect();
+                // unten im Bild: gekippt, ab 55 % Hoehe: aufrecht
+                const t = Math.max(0, Math.min(1, (r.top - vh * 0.55) / (vh * 0.45)));
+                terminal.style.setProperty('--tilt', (t * 18).toFixed(2) + 'deg');
+            }
+            if (ewocheImg) {
+                const r = ewocheImg.parentElement.getBoundingClientRect();
+                if (r.bottom > 0 && r.top < vh) {
+                    const c = (r.top + r.height / 2 - vh / 2) / vh;
+                    ewocheImg.style.setProperty('--py', (c * -24).toFixed(1) + 'px');
+                }
+            }
+        }
+        let depthTick = false;
+        window.addEventListener('scroll', () => {
+            if (depthTick) return;
+            depthTick = true;
+            requestAnimationFrame(() => { updateDepth(); depthTick = false; });
+        }, { passive: true });
+        updateDepth();
+    }
 });
