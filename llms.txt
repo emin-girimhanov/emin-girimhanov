@@ -19,7 +19,7 @@
 - [E-Woche-Portal](https://github.com/emin-girimhanov/e-week-mentor-website): Portal für Mentor:innen und Helfende der Einführungswoche.
 - Autonomer Mähroboter: Raspberry Pi, Python, 3D-Druck, Schulprojekt im Zweierteam.
 - Schulcampus-Modell 1:150: CAD und 3D-Druck des CJD Droyßig, Sonderpreis für Digitalisierung 2024.
-- Homelab: Proxmox-Server mit Nextcloud, Paperless-ngx, n8n, Stirling-PDF, Firefly III und SearXNG.
+- Homelab: Proxmox-Server mit über 20 Diensten, u. a. Nextcloud, Immich, Paperless-ngx, Vaultwarden, Forgejo, n8n, Actual Budget, Pocket ID (Passkeys), Tailscale und AdGuard Home; nächtliche verschlüsselte Backups.
 
 ## Auszeichnungen und Zertifikate
 

@@ -22,7 +22,7 @@ Ich bin in Sachsen-Anhalt aufgewachsen. Mich beschäftigen handfeste Probleme: E
 | **OSCAR** | Discord-Bot zur Semesterplanung für Informatikstudierende. Selbst gewähltes Thema im Softwareprojekt, entwickelt im Viererteam. | [Code](https://github.com/emin-girimhanov/oscar-discord-bot), [Doku](https://emin-girimhanov.github.io/oscar-discord-bot/) |
 | **Autonomer Mähroboter** | Raspberry Pi, Python und 3D-Druck. Abschlussarbeit im Zweierteam. | |
 | **Schulcampus-Modell (1:150)** | CAD-Modell und 3D-Druck des Schulcampus Droyßig im Zweierteam. Sonderpreis für Digitalisierung 2024. | [3D-Ansicht](https://emin-girimhanov.de/) |
-| **Proxmox-Homelab** | Eigener Server mit Nextcloud, Paperless-ngx, n8n und weiteren freien Diensten. | |
+| **Proxmox-Homelab** | Eigener Server mit über 20 Diensten: Nextcloud, Immich, Paperless-ngx, Vaultwarden, Forgejo, n8n, Actual Budget und mehr. Passkeys über Pocket ID, Zugang per Tailscale, nächtliche verschlüsselte Backups. | |
 | **FIM Schulung** | Lernportal für das Föderale Informationsmanagement. Im Zweierteam überarbeitet. | [fim-schulung.de](https://fim-schulung.de/) |
 | **Falcos GmbH** | Mein Arbeitgeber, nicht mein Projekt. Ich entwickle dort XÖV-ZUGFeRD-Parser, Docusaurus-Portale und Automatisierung mit LLMs. | [falcos.de](https://falcos.de) |
 | **SIDUM e.V.** | Studentische Unternehmensberatung, Ressort Finanzen & Recht. Workshops mit d-fine und PwC. | [sidum.de](https://www.sidum.de/) |
@@ -47,7 +47,7 @@ Ich bin in Sachsen-Anhalt aufgewachsen. Mich beschäftigen handfeste Probleme: E
 ## Kenntnisse
 
 * Programmierung & Daten: Java, Python, Web (HTML, CSS, JavaScript), SQL & Datenbanken, Git
-* Self-Hosting: Proxmox VE, n8n, Nextcloud, Paperless-ngx, Stirling-PDF, Firefly III, SearXNG
+* Self-Hosting: Proxmox VE, Nextcloud, Immich, Paperless-ngx, Vaultwarden, Forgejo, n8n, Actual Budget, Pocket ID, Tailscale, AdGuard Home, Caddy
 * Methoden: XÖV-Modellierung, CAD & 3D-Druck (FDM), Scrum
 * Sprachen: Deutsch (Muttersprache), Englisch (kommunikationssicher)
 
