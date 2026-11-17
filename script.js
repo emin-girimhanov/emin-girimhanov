@@ -217,8 +217,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Konsole ---
     const terminalTexts = {
         whoami: {
-            de: 'Emin Girimhanov. Student der Wirtschaftsinformatik an der OVGU Magdeburg (IT-Sicherheit & Data Science), Werkstudent bei der Falcos GmbH, Übungsleiter für Software Engineering, e-fellows.net-Stipendiat.',
-            en: 'Emin Girimhanov. Business informatics student at OVGU Magdeburg (IT security & data science), working student at Falcos GmbH, teaching assistant for Software Engineering, e-fellows.net scholar.'
+            de: 'Emin Girimhanov. Student der Wirtschaftsinformatik an der OVGU Magdeburg (IT-Sicherheit & Data Science), Werkstudent bei der Falcos GmbH, Übungsleiter für Software Engineering & IT-Projektmanagement, Stipendiat der Stiftung der Deutschen Wirtschaft (sdw) und von e-fellows.net.',
+            en: 'Emin Girimhanov. Business informatics student at OVGU Magdeburg (IT security & data science), working student at Falcos GmbH, teaching assistant for Software Engineering & IT-Projektmanagement, scholar of the Foundation of German Business (sdw) and e-fellows.net.'
         },
         projekte: {
             de: 'Projekte:\n • Autohaus Kleinjena: https://autohaus-kleinjena.netlify.app/\n • OSCAR Semesterplaner: https://github.com/emin-girimhanov/oscar-discord-bot\n • FIM Schulung: https://fim-schulung.de/\n • Autonomer Mähroboter (Raspberry Pi, Python, 3D-Druck)\n • Schulcampus-Modell 1:150 (Sonderpreis für Digitalisierung)\n • E-Woche-Portal: https://github.com/emin-girimhanov/e-week-mentor-website\n • Homelab mit Proxmox',
@@ -229,8 +229,8 @@ document.addEventListener('DOMContentLoaded', () => {
             en: 'Programming: Java, Python, HTML/CSS/JavaScript, SQL, Git\nSelf-hosting: Proxmox VE, n8n, Nextcloud, Paperless-ngx, Stirling-PDF, Firefly III, SearXNG\nPublic sector: FIM method expert (2025), FIM information manager, XÖV modelling\nOther: Certified ScrumMaster (2025), CAD & 3D printing (FDM)\nLanguages: German (native), English (fluent)'
         },
         erfahrung: {
-            de: 'seit 10/2026  Übungsleiter Software Engineering, OVGU\nseit 06/2025  Werkstudent Softwareentwicklung, Falcos GmbH (XÖV, ZUGFeRD)\nseit 04/2025  SIDUM e.V., Ressort Finanzen & Recht\nseit 03/2025  Stellvertreter im Fachschaftsrat FIN\nseit 10/2024  B.Sc. Wirtschaftsinformatik, OVGU Magdeburg (schneller als der Regelstudienplan)\n     06/2024  Abitur, CJD Droyßig',
-            en: 'since 10/2026  Teaching assistant Software Engineering, OVGU\nsince 06/2025  Working student software development, Falcos GmbH (XÖV, ZUGFeRD)\nsince 04/2025  SIDUM e.V., finance & legal\nsince 03/2025  Deputy, FIN student council\nsince 10/2024  B.Sc. Business Informatics, OVGU Magdeburg (ahead of the standard study plan)\n      06/2024  Abitur, CJD Droyßig'
+            de: 'seit 10/2026  Übungsleiter Software Engineering & IT-Projektmanagement, OVGU\nseit 06/2025  Werkstudent Softwareentwicklung, Falcos GmbH (XÖV, ZUGFeRD)\nseit 04/2025  SIDUM e.V., Ressort Finanzen & Recht\nseit 03/2025  Stellvertreter im Fachschaftsrat FIN\nseit 10/2024  B.Sc. Wirtschaftsinformatik, OVGU Magdeburg (schneller als der Regelstudienplan)\n     06/2024  Abitur, CJD Droyßig',
+            en: 'since 10/2026  Teaching assistant Software Engineering & IT-Projektmanagement, OVGU\nsince 06/2025  Working student software development, Falcos GmbH (XÖV, ZUGFeRD)\nsince 04/2025  SIDUM e.V., finance & legal\nsince 03/2025  Deputy, FIN student council\nsince 10/2024  B.Sc. Business Informatics, OVGU Magdeburg (ahead of the standard study plan)\n      06/2024  Abitur, CJD Droyßig'
         },
         engagement: {
             de: 'Ehrenamt:\n • Fachschaftsrat FIN: Erstsemesterwochen im Winter- und Sommersemester (150+ und 80+ Studierende), IT-Administration, Wiki\n • CJD Droyßig: Klassensprecher\n\nFachlich:\n • SIDUM e.V.: Workshop mit d-fine, PwC GenAI Masterclass',
@@ -263,8 +263,40 @@ document.addEventListener('DOMContentLoaded', () => {
         hilfe: 'help', '?': 'help', ls: 'help'
     };
 
+    // Versteckte Befehle: stehen weder in 'help' noch auf den Knoepfen.
+    let reprintCampus = null;
+    const easterEggs = {
+        a38: {
+            de: 'Antrag auf Passierschein A38 wird bearbeitet …\n → Schalter 1: Bitte Formular blau ausfüllen.\n → Schalter 2: Zuständig ist Etage 3.\n → Etage 3: Ohne Stempel von Schalter 1 geht da nichts.\n → Schalter 1: Bitte Formular blau ausfüllen.\n → …\nFehler: Endlosschleife in der Verwaltung erkannt.\n\nZweiter Versuch, digital: Antrag online gestellt, Daten als XÖV-Nachricht übertragen, Bescheid nach 0,3 Sekunden.\nSo sollte Verwaltung laufen.',
+            en: 'Processing application for permit A38 …\n → Desk 1: Please fill in the blue form.\n → Desk 2: Floor 3 is responsible.\n → Floor 3: Not without a stamp from desk 1.\n → Desk 1: Please fill in the blue form.\n → …\nError: infinite loop detected in public administration.\n\nSecond attempt, digital: applied online, data sent as an XÖV message, decision after 0.3 seconds.\nThat is how administration should work.'
+        },
+        druck: {
+            de: 'Druckauftrag gesendet: campus_droyssig.gcode\nMaßstab 1:150, PLA weiß, Schichthöhe 0,2 mm.\nDrucker startet, nach oben scrollen …',
+            en: 'Print job sent: campus_droyssig.gcode\nScale 1:150, white PLA, layer height 0.2 mm.\nPrinter starting, scrolling up …'
+        },
+        sudo: {
+            de: 'emin is not in the sudoers file. Dieser Vorfall wird dem Fachschaftsrat gemeldet.',
+            en: 'emin is not in the sudoers file. This incident will be reported to the student council.'
+        }
+    };
+    const eggAliases = {
+        'passierschein a38': 'a38', 'passierschein': 'a38', 'permit a38': 'a38',
+        print: 'druck', drucken: 'druck', '3d': 'druck', 'make campus': 'druck'
+    };
+
     function commandText(cmd) {
         const lang = currentLang;
+        const egg = cmd.startsWith('sudo') ? 'sudo' : eggAliases[cmd] || (easterEggs[cmd] ? cmd : null);
+        if (egg) {
+            if (egg === 'druck' && reprintCampus) {
+                setTimeout(() => {
+                    const top = document.getElementById('top');
+                    if (top) top.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+                    reprintCampus();
+                }, 1400);
+            }
+            return easterEggs[egg][lang];
+        }
         if (cmd === 'kontakt') {
             return (lang === 'de' ? 'Kontakt:' : 'Contact:') +
                 '\n • E-Mail: ' + mailAddr() +
@@ -467,6 +499,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             lightboxImg.src = img.src;
             lightboxImg.alt = img.alt;
+            lightboxImg.classList.toggle('is-portrait', img.classList.contains('portrait'));
             lightbox.showModal();
         });
     });
@@ -508,19 +541,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const ctx = canvas.getContext('2d');
         const layerLabel = document.getElementById('vp-layer');
 
-        // Gebaeude: x0, z0, x1, z1, Traufhoehe, Firsthoehe ueber Traufe (0 = Flachdach)
-        const buildings = [
-            [-7.5, -5.0, 2.5, -2.2, 3.2, 1.4],  // Hauptgebaeude
-            [0.8, -1.4, 3.8, 4.6, 3.0, 1.3],    // Fluegel
-            [-7.5, 0.6, -2.0, 4.8, 2.3, 0],     // Sporthalle
-            [4.8, -4.6, 7.2, -1.2, 2.4, 2.2],   // Kapelle
-            [-1.6, -1.2, -0.4, 0.0, 5.2, 0],    // Turm
-            [4.8, 1.6, 7.2, 4.6, 1.6, 0]        // Nebengebaeude
+        // Nach dem gedruckten Modell der CJD Christophorusschule Droyssig (Schlossanlage).
+        // Grundriss in Modelleinheiten (1 Einheit = 3 m), z waechst nach hinten.
+        // x0, z0, x1, z1, Traufhoehe, Dachhoehe, Dachform ('gable' = Satteldach, 'pyramid' = Zeltdach)
+        const plan = [
+            [-6.6, 0.0, 4.2, 2.8, 4.2, 1.3, 'gable'],    // Vorderfluegel, vier Geschosse
+            [-10.8, 0.4, -6.6, 2.8, 3.4, 1.1, 'gable'],  // Vorderfluegel links, niedriger
+            [-8.4, 2.8, -6.0, 8.6, 3.6, 1.2, 'gable'],   // Westfluegel
+            [0.8, 2.8, 3.2, 12.4, 4.0, 1.2, 'gable'],    // Ostfluegel, reicht weit nach hinten
+            [-0.9, 5.4, 0.8, 9.6, 2.8, 1.1, 'gable'],    // Kirchenschiff am Ostfluegel
+            [-1.6, 4.2, -0.2, 5.6, 5.6, 2.4, 'pyramid'], // Kirchturm im Hof
+            [-5.4, 9.4, -2.6, 12.2, 3.4, 1.8, 'pyramid'],// Turmbau hinten links
+            [3.2, 9.8, 7.6, 11.6, 1.8, 0.8, 'gable'],    // Verbindungsbau nach rechts hinten
+            [6.0, 11.0, 10.4, 14.4, 3.0, 1.4, 'gable'],  // Gebaeude hinten rechts
+            [7.2, -3.4, 10.4, 4.4, 1.0, 0, 'flat']       // flacher Block vorn rechts
         ];
+        // Mitte des Grundrisses auf den Ursprung, hinten = -z
+        const buildings = plan.map(([x0, z0, x1, z1, e, r, t]) => [x0, -(z1 - 5.5), x1, -(z0 - 5.5), e, r, t]);
         const maxH = Math.max(...buildings.map(b => b[4] + b[5]));
 
         const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-        let yaw = -0.65, pitch = 0.52, yawVel = 0;
+        let yaw = Math.PI - 0.35, pitch = 0.6, yawVel = 0;
         let progress = reduce.matches ? 1 : 0;
         let dragging = false, lastX = 0, lastY = 0, lastInteract = -1e9;
         let w = 0, h = 0, dpr = 1, visible = true, raf = null, lastT = 0;
@@ -554,15 +595,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const y1 = p[1] - 1.2;
             const y2 = y1 * cp + z1 * sp;
             const z2 = z1 * cp - y1 * sp;
-            const dist = 30;
-            const f = Math.min(w, h * 1.25) * 1.4;
+            const dist = 40;
+            const f = Math.min(w, h * 1.25) * 1.45;
             const zz = dist + z2;
             return [w / 2 + (x1 * f) / zz, h * 0.56 - (y2 * f) / zz, zz];
         }
 
         function faceList(cut) {
             const faces = [];
-            buildings.forEach(([x0, z0, x1, z1, eave, ridge]) => {
+            buildings.forEach(([x0, z0, x1, z1, eave, ridge, type]) => {
                 const top = Math.min(eave, cut);
                 if (top <= 0) return;
                 const quad = (pts, kind) => faces.push({ pts, kind });
@@ -576,7 +617,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
                 const yr = eave + roofH;
-                if (x1 - x0 >= z1 - z0) {
+                if (type === 'pyramid') {
+                    const apex = [(x0 + x1) / 2, yr, (z0 + z1) / 2];
+                    quad([[x0, eave, z0], [x1, eave, z0], apex], 'roof');
+                    quad([[x1, eave, z0], [x1, eave, z1], apex], 'roof');
+                    quad([[x1, eave, z1], [x0, eave, z1], apex], 'roof');
+                    quad([[x0, eave, z1], [x0, eave, z0], apex], 'roof');
+                } else if (x1 - x0 >= z1 - z0) {
                     const zm = (z0 + z1) / 2;
                     quad([[x0, eave, z0], [x1, eave, z0], [x1, yr, zm], [x0, yr, zm]], 'roof');
                     quad([[x1, eave, z1], [x0, eave, z1], [x0, yr, zm], [x1, yr, zm]], 'roof');
@@ -608,10 +655,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Bodenraster
             ctx.strokeStyle = colors.muted;
             ctx.lineWidth = 1;
-            for (let i = -10; i <= 10; i += 1) {
+            for (let i = -12; i <= 12; i += 1) {
                 ctx.globalAlpha = i % 5 === 0 ? 0.28 : 0.11;
-                polyline([project([i, 0, -10]), project([i, 0, 10])]); ctx.stroke();
-                polyline([project([-10, 0, i]), project([10, 0, i])]); ctx.stroke();
+                polyline([project([i, 0, -12]), project([i, 0, 12])]); ctx.stroke();
+                polyline([project([-12, 0, i]), project([12, 0, i])]); ctx.stroke();
             }
             ctx.globalAlpha = 1;
 
@@ -651,7 +698,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ctx.strokeStyle = colors.accent;
                 ctx.setLineDash([4, 4]);
                 ctx.globalAlpha = 0.7;
-                polyline([[-9, cut, -7], [9, cut, -7], [9, cut, 7], [-9, cut, 7]].map(project), true);
+                polyline([[-11.5, cut, -9.5], [11, cut, -9.5], [11, cut, 9.5], [-11.5, cut, 9.5]].map(project), true);
                 ctx.stroke();
                 ctx.setLineDash([]);
                 ctx.globalAlpha = 1;
@@ -744,6 +791,12 @@ document.addEventListener('DOMContentLoaded', () => {
         new MutationObserver(() => { readColors(); draw(); })
             .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
         darkQuery.addEventListener && darkQuery.addEventListener('change', () => { readColors(); draw(); });
+
+        reprintCampus = () => {
+            progress = reduce.matches ? 1 : 0;
+            lastInteract = -1e9;
+            start();
+        };
 
         readColors();
         resize();

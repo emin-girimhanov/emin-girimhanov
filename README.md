@@ -1,6 +1,6 @@
 # Hi, ich bin Emin Girimhanov
 
-Ich studiere Wirtschaftsinformatik an der Otto-von-Guericke-Universität Magdeburg. Als Werkstudent bei der Falcos GmbH entwickle ich Software für den Public Sector. An der Fakultät für Informatik leite ich eine Übung in Software Engineering.
+Ich studiere Wirtschaftsinformatik an der Otto-von-Guericke-Universität Magdeburg. Als Werkstudent bei der Falcos GmbH entwickle ich Software für den Public Sector. An der Fakultät für Informatik leite ich eine Übung in Software Engineering & IT-Projektmanagement.
 
 Webseite und Portfolio: [emin-girimhanov.de](https://emin-girimhanov.de/)
 
@@ -30,7 +30,7 @@ Ich bin in Sachsen-Anhalt aufgewachsen. Mich beschäftigen handfeste Probleme: E
 
 ## Stationen
 
-* seit 10/2026: Übungsleiter für Software Engineering, Fakultät für Informatik, OVGU
+* seit 10/2026: Übungsleiter für Software Engineering & IT-Projektmanagement, Fakultät für Informatik, OVGU
 * seit 06/2025: Softwareentwickler (Werkstudent) im Public Sector, Falcos GmbH
 * seit 04/2025: SIDUM e.V., Ressort Finanzen & Recht
 * seit 03/2025: Gewählter Stellvertreter im Fachschaftsrat FIN
@@ -39,6 +39,7 @@ Ich bin in Sachsen-Anhalt aufgewachsen. Mich beschäftigen handfeste Probleme: E
 
 ## Auszeichnungen & Zertifikate
 
+* Stipendium der [Stiftung der Deutschen Wirtschaft (sdw)](https://www.sdw.org/)
 * Online-Stipendium: [e-fellows.net](https://www.e-fellows.net/) (seit 09.2025)
 * Zertifikate: Certified ScrumMaster (CSM, Scrum Alliance 2025), FIM-Methodenexperte (Falcos GmbH 2025), FIM-Informationsmanager
 * Preise: Sonderpreis für Digitalisierung (CJD Droyßig, 06.2024)
@@ -57,7 +58,7 @@ Ich bin in Sachsen-Anhalt aufgewachsen. Mich beschäftigen handfeste Probleme: E
 
 # Hi, I am Emin Girimhanov
 
-I study Business Informatics at Otto von Guericke University Magdeburg. As a working student at Falcos GmbH I build software for the public sector. At the Faculty of Computer Science I lead an exercise group in Software Engineering.
+I study Business Informatics at Otto von Guericke University Magdeburg. As a working student at Falcos GmbH I build software for the public sector. At the Faculty of Computer Science I lead an exercise group in Software Engineering & IT-Projektmanagement.
 
 Website and portfolio: [emin-girimhanov.de](https://emin-girimhanov.de/)
 

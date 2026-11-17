@@ -130,7 +130,7 @@ p { margin: 0 0 1em; }
 }
 
 /* Markenfarben beim Hover: Falcos gruen, OVGU beere, e-fellows orange */
-.falcos-link, .ovgu-link, .efellows-link {
+.falcos-link, .ovgu-link, .efellows-link, .sdw-link {
     color: inherit;
     font-weight: 600;
     text-decoration: none;
@@ -140,13 +140,15 @@ p { margin: 0 0 1em; }
 }
 .falcos-link:hover, .falcos-link:focus-visible,
 .ovgu-link:hover, .ovgu-link:focus-visible,
-.efellows-link:hover, .efellows-link:focus-visible {
+.efellows-link:hover, .efellows-link:focus-visible,
+.sdw-link:hover, .sdw-link:focus-visible {
     color: var(--brand);
     border-bottom-color: var(--brand);
     border-bottom-style: solid;
     text-shadow: 0 0 14px var(--brand-glow);
 }
 .falcos-link { --brand: var(--falcos); --brand-soft: var(--falcos-soft); --brand-glow: var(--falcos-glow); }
+.sdw-link { --brand: var(--accent); --brand-soft: color-mix(in srgb, var(--accent) 55%, transparent); --brand-glow: color-mix(in srgb, var(--accent) 35%, transparent); }
 .ovgu-link { --brand: var(--ovgu); --brand-soft: var(--ovgu-soft); --brand-glow: var(--ovgu-glow); }
 .efellows-link { --brand: var(--efellows); --brand-soft: var(--efellows-soft); --brand-glow: var(--efellows-glow); white-space: nowrap; }
 
@@ -232,7 +234,8 @@ p { margin: 0 0 1em; }
 
 @media (max-width: 600px) {
     .hero { margin-top: 32px; }
-    .portrait { width: 56px; height: 56px; margin-bottom: 14px; }
+    .portrait { width: 56px; height: 56px; }
+    .portrait-btn { margin-bottom: 14px; }
     .role { font-size: 0.95rem; }
 }
 
@@ -312,12 +315,13 @@ body::before {
     margin-inline: calc(50% - min(470px, 50vw - 20px));
 }
 
+.portrait-btn { display: block; margin-bottom: 20px; border-radius: 50%; }
 .portrait {
     width: 64px;
     height: 64px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 20px;
+    transition: transform 0.2s ease;
     box-shadow: 0 0 0 1px var(--line), 0 0 0 5px var(--bg), 0 0 0 6px var(--line);
 }
 
@@ -492,6 +496,8 @@ main { counter-reset: sec; }
 }
 .lightbox::backdrop { background: rgb(0 0 0 / 0.8); }
 .lightbox img { max-height: 86vh; width: auto; border-radius: 6px; }
+.lightbox img.is-portrait { width: min(80vw, 360px); height: auto; border-radius: 50%; }
+@media (hover: hover) { .portrait-btn:hover .portrait { transform: scale(1.06); } }
 .lightbox-close {
     position: fixed;
     top: 16px;
