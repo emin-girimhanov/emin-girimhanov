@@ -1,23 +1,36 @@
-name: Sync to emin-giri
+name: README nach emin-giri spiegeln
 
+# Nur die README.md wird in das Profil-Repo emin-giri/emin-giri kopiert.
+# Webseite (HTML, CSS, JS, Bilder) bleibt hier.
 on:
   push:
     branches:
       - main
+    paths:
+      - README.md
+  workflow_dispatch:
 
 jobs:
-  git-sync:
+  readme:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Push to emin-giri
-        uses: wei/git-sync@v3
-        with:
-          source_repo: "emin-girimhanov/emin-girimhanov"
-          source_branch: "main"
-          destination_repo: "https://x-access-token:${{ secrets.SYNC_TOKEN }}@github.com/emin-giri/emin-giri.git"
-          destination_branch: "main"
+      - name: README nach emin-giri/emin-giri kopieren
+        env:
+          GH_TOKEN: ${{ secrets.SYNC_TOKEN }}
+          TARGET: emin-giri/emin-giri
+        run: |
+          set -euo pipefail
+          sha=$(gh api "repos/$TARGET/contents/README.md" --jq .sha 2>/dev/null || true)
+          remote=$(gh api "repos/$TARGET/contents/README.md" -H "Accept: application/vnd.github.raw" 2>/dev/null || true)
+          if [ "$remote" = "$(cat README.md)" ]; then
+            echo "README unveraendert, nichts zu tun."
+            exit 0
+          fi
+          args=(-X PUT "repos/$TARGET/contents/README.md"
+                -f message="docs: README aus emin-girimhanov/emin-girimhanov@${GITHUB_SHA::7}"
+                -f content="$(base64 -w0 README.md)")
+          if [ -n "$sha" ]; then args+=(-f sha="$sha"); fi
+          gh api "${args[@]}" --jq .commit.html_url
